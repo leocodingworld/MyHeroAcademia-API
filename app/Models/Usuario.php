@@ -5,31 +5,34 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Sanctum\HasApiTokens;
-// use Illuminate\Database\Eloquent\Model;
+
+use App\Models\Tipo;
 
 class Usuario extends Authenticatable
 {
-    use HasFactory, HasApiTokens;
+	use HasFactory, HasApiTokens;
 
-    protected $table = "usuarios";
-    protected $primaryKey = "id";
-    public $incrementing = true;
-    public $timestamps = false;
+	protected $table = "usuarios";
+	protected $primaryKey = "idUsuario";
+	public $incrementing = true;
+	public $timestamps = false;
 
-    protected $attributes = [
-        "activo" => false
-    ];
+	protected $fillable = [
+		"nombre",
+		"apellidos",
+		"direccion",
+		"telefono",
+		"password",
+		"tipo",
+		"activo"
+	];
 
-    protected $fillable = [
-        "nombre",
-        "apellidos",
-        "direccion",
-        "telefono",
-        "password",
-        "activo"
-    ];
+	public function tipo() {
+		return $this -> hasMany(Tipo::class, "tipo");
+	}
 
-    protected $hidden = [
-        "password"
-    ];
+	protected $hidden = [
+		// "idUsuario",
+		"password"
+	];
 }
