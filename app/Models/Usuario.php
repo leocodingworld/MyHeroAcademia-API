@@ -22,17 +22,17 @@ class Usuario extends Authenticatable
 		"apellidos",
 		"direccion",
 		"telefono",
+		"email",
 		"password",
 		"tipo",
 		"activo"
 	];
 
 	public function tipo() {
-		return $this -> hasMany(Tipo::class, "tipo");
+		return $this -> hasMany(Tipo::class);
 	}
 
 	protected $hidden = [
-		// "idUsuario",
 		"password"
 	];
 }

@@ -15,7 +15,7 @@ class Personal extends Model
 	public $timestamps = false;
 
 	public function idPersonal() {
-		return $this -> hasMany(Usuario::class, "idPersonal");
+		return $this -> hasMany(Usuario::class);
 	}
 
 	protected $filliable = [

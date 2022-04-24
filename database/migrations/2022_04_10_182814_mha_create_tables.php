@@ -23,8 +23,9 @@ return new class extends Migration
 
 			$table -> string("nombre", 25);
 			$table -> string("apellidos", 35);
-			$table -> string("direccion", 45);
+			$table -> string("direccion");
 			$table -> string("telefono", 9);
+			$table -> string("email");
 			$table -> binary("password");
 			$table -> boolean("activo") -> default(false);
 			$table -> tinyInteger("tipo", false, true);
@@ -128,7 +129,9 @@ return new class extends Migration
      */
     public function down()
     {
-		Schema::dropIfExists("expendientes");
+		// DROP TABLE expendientes, alumModul, modulos, cursos, alumnos, personal, usuarios, tipos;
+
+		Schema::dropIfExists("expedientes");
 		Schema::dropIfExists("alumModul");
 		Schema::dropIfExists("modulos");
 		Schema::dropIfExists("cursos");

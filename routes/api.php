@@ -1,8 +1,9 @@
 <?php
 
-use App\Models\Usuario;
-use Illuminate\Http\Request;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,14 +16,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get("/test", function(Request $request) {
-	return Usuario::create([
-		"nombre" => "Paco",
-		"apellidos" => "Perez",
-		"direccion" => "Avda Falsa 1",
-		"telefono" => "123456789",
-		"password" => "147852369",
-		"activo" => true,
-		"tipo" => 1
-	]);
+/**
+ * Rutas de autenficación usando Tokens
+ */
+Route::controller(AuthController::class) -> group(function() {
+	Route::post("/login", "login");
+	Route::post("/logout", "logout");
+});
+
+Route::get("/test", [UsuarioController::class, "getUsuarios"]);
+
+Route::middleware("auth:sanctum") -> group(function() {
+	Route::controller(UsuarioController::class) -> group(function() {
+
+	});
 });
