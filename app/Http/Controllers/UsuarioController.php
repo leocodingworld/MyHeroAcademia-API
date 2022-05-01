@@ -17,6 +17,10 @@ class UsuarioController extends Controller
 
 	}
 
+	public function getUsuarioData(Request $request) {
+
+	}
+
 	public function activarUsuario(Request $request) {
 		$status = "";
 		$activado = Usuario::where("email", $request -> email);

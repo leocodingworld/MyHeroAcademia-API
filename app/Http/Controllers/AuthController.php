@@ -14,7 +14,7 @@ class AuthController extends Controller
         ]);
 
         if (!Auth::attempt($attr)) {
-            return ["status" => "NotMatch"];
+            return ;
         }
 
         return [
