@@ -23,8 +23,4 @@ class Alumno extends Model
 	protected $filliable = [
 		"fechaMatricula"
 	];
-
-	// protected $hidden = [
-	// 	"idAlumno"
-	// ];
 }

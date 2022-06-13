@@ -3,7 +3,6 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +15,6 @@ use Illuminate\Http\Request;
 |
 */
 
-/**
- * Rutas de autenficación usando Tokens
- */
 Route::controller(AuthController::class) -> group(function() {
 	Route::post("/login", "login");
 	Route::post("/logout", "logout");
@@ -27,7 +23,10 @@ Route::controller(AuthController::class) -> group(function() {
 Route::get("/test", [UsuarioController::class, "getUsuarios"]);
 
 Route::middleware("auth:sanctum") -> group(function() {
+
 	Route::controller(UsuarioController::class) -> group(function() {
 
 	});
+
+
 });

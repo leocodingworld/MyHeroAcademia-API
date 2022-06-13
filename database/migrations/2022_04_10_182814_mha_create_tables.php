@@ -13,12 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create("tipos", function(Blueprint $table) {
-			$table -> tinyIncrements("idTipo");
-			$table -> string("nombre");
-		});
-
-		Schema::create("usuarios", function(Blueprint $table) {
+        Schema::create("usuarios", function(Blueprint $table) {
 			$table -> id("idUsuario");
 
 			$table -> string("nombre", 25);
@@ -29,11 +24,6 @@ return new class extends Migration
 			$table -> binary("password");
 			$table -> boolean("activo") -> default(false);
 			$table -> tinyInteger("tipo", false, true);
-
-			// $table
-			// 	-> foreign("tipo")
-			// 	-> references("idTipo")
-			// 	-> on("tipos");
 		});
 
 		Schema::create("personal", function(Blueprint $table) {
@@ -119,6 +109,15 @@ return new class extends Migration
 			$table -> unsignedBigInteger("alumno", false);
 			$table -> unsignedBigInteger("curso", false);
 			$table -> unsignedBigInteger("modulo", false);
+			$table -> set("periodo", [
+				"1a Evaluación",
+				"2a Evaluación",
+				"3a Evaluación",
+				"Final Ordinaria",
+				"Primera Convocatoria"
+			]);
+
+			$table -> primary(["numero", "alumno", "curso"]);
 		});
     }
 
@@ -138,6 +137,5 @@ return new class extends Migration
 		Schema::dropIfExists("alumnos");
 		Schema::dropIfExists("personal");
 		Schema::dropIfExists("usuarios");
-		Schema::dropIfExists("tipos");
     }
 };

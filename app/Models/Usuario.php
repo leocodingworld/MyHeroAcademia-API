@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Sanctum\HasApiTokens;
 
-use App\Models\Tipo;
-
 class Usuario extends Authenticatable
 {
 	use HasFactory, HasApiTokens;
@@ -27,10 +25,6 @@ class Usuario extends Authenticatable
 		"tipo",
 		"activo"
 	];
-
-	public function tipo() {
-		return $this -> hasMany(Tipo::class);
-	}
 
 	protected $hidden = [
 		"password"
