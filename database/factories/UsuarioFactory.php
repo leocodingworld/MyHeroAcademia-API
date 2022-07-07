@@ -19,10 +19,16 @@ class UsuarioFactory extends Factory
     public function definition()
     {
         return [
+			"dni" => $this -> faker -> dni(),
             "nombre" => $this -> faker -> firstName(),
 			"apellidos" => $this -> faker -> lastName(),
-			"email" => $this -> faker -> email(),
 			"direccion" => $this -> faker -> streetAddress(),
+			"localidad" => $this -> faker -> city(),
+			"municipio" => $this -> faker -> city(),
+			"provincia" => $this -> faker -> state(),
+			"codigoPostal" => $this -> faker -> postcode(),
+			"fechaNacimiento" => $this -> faker -> date("d/m/Y"),
+			"email" => $this -> faker -> email(),
 			"telefono" => Str::replace("-", "", $this -> faker -> phoneNumber()),
 			"password" => bcrypt("123abc."),
 			"tipo" => $this -> faker -> randomElement([1, 2, 3]),

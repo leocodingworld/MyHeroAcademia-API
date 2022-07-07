@@ -16,13 +16,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::controller(AuthController::class) -> group(function() {
-	Route::post("/login", "login");
-	Route::post("/logout", "logout");
-});
-
 Route::get("/datos/{usuario}", function($usuario) {
 	return Usuario::where("idusuario", $usuario) -> first(); // OK
+});
+
+Route::get("/usuarios", function() {
+	return Usuario::all();
+});
+
+Route::controller(AuthController::class) -> group(function() {
+	Route::post("/login", "login"); // OK
+	Route::post("/logout", "logout");
 });
 
 Route::middleware("auth:sanctum") -> group(function() {

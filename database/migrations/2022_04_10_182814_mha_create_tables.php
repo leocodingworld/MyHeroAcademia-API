@@ -16,12 +16,18 @@ return new class extends Migration
         Schema::create("usuarios", function(Blueprint $table) {
 			$table -> id("idUsuario");
 
+			$table -> string("dni", 9);
 			$table -> string("nombre", 25);
 			$table -> string("apellidos", 35);
 			$table -> string("direccion");
-			$table -> string("telefono", 9);
+			$table -> string("localidad");
+			$table -> string("municipio");
+			$table -> string("provincia");
+			$table -> string("codigoPostal");
+			$table -> string("telefono");
+			$table -> string("fechaNacimiento", 10);
 			$table -> string("email");
-			$table -> binary("password");
+			$table -> binary("password"); // Cambiar de lugar
 			$table -> boolean("activo") -> default(false);
 			$table -> tinyInteger("tipo", false, true);
 		});

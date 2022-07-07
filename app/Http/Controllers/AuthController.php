@@ -22,12 +22,28 @@ class AuthController extends Controller
         ];
     }
 
+	/**
+	 * Pendiente de Arreglar
+	 */
     public function logout(Request $request) {
-		$token = $request -> user() -> currentAccessToken();
-		$token -> where("id", $token -> id) -> delete();
+		// $message = [
+		// 	"Info" => "Testing"
+		// ];
 
-        return [
-            'message' => 'Tokens Revoked'
-        ];
+		// try {
+
+		// 	// $token = $request -> user() -> tokens();
+		// 	// $token -> where("id", $token -> id) -> delete();
+
+		// 	$request -> user() -> currentAccessToken() -> delete();
+
+		// 	$message["result"] = "OK";
+
+		// } catch (Exception $e) {
+		// 	$message["result"] = "NOP";
+		// 	$message["error"] = $e -> getMessage();
+		// }
+
+        return auth() -> user();
     }
 }
