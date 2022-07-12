@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Alumno;
 use App\Models\Personal;
 use App\Models\Usuario;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -16,6 +17,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-		Usuario::factory() -> count(50) -> create();
+		Personal::factory(Usuario::where("tipo", "!=", 1) -> count()) -> create();
     }
 }

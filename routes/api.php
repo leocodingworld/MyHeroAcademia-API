@@ -16,24 +16,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get("/datos/{usuario}", function($usuario) {
-	return Usuario::where("idusuario", $usuario) -> first(); // OK
-});
-
-Route::get("/usuarios", function() {
-	return Usuario::all();
-});
 
 Route::controller(AuthController::class) -> group(function() {
 	Route::post("/login", "login"); // OK
 	Route::post("/logout", "logout");
 });
 
+Route::controller(UsuarioController::class) -> group(function() {
+	Route::get("/datos/{usuario}", "getUsuarioData"); // cambiarlo más adelante
+	Route::get("/usuarios", "getUsuarios");
+
+	Route::post("/nuevo", "nuevoUsuario");
+
+	Route::put("/editar", "editarUsuario");
+	Route::put("/activar", "activarUsuario");
+	Route::put("/desactivar", "desactivarUsuario");
+});
+
 Route::middleware("auth:sanctum") -> group(function() {
-
-	Route::controller(UsuarioController::class) -> group(function() {
-
-	});
-
 
 });

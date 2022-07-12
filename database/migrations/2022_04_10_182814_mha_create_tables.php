@@ -134,8 +134,6 @@ return new class extends Migration
      */
     public function down()
     {
-		// DROP TABLE expendientes, alumModul, modulos, cursos, alumnos, personal, usuarios, tipos;
-
 		Schema::dropIfExists("expedientes");
 		Schema::dropIfExists("alumModul");
 		Schema::dropIfExists("modulos");

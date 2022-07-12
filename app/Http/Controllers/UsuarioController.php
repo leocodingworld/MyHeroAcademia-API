@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Usuario;
-use App\Models\Personal;
-use App\Models\Alumno;
 use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
@@ -13,30 +11,22 @@ class UsuarioController extends Controller
 		return Usuario::all();
 	}
 
-	public function getUsuariosFilter(Request $request) {
-
+	public function getUsuarioData($usuario) {
+		return Usuario::where("idUsuario", $usuario) -> first();
 	}
 
-	public function getUsuarioData(Request $request) {
+	public function activarUsuario(Request $request) { // OK
+		$activar = Usuario::where("idUsuario", $request -> id) -> first();
 
+		$activar -> activo = true;
+		$activar -> save();
+
+		return response("Correcto", 200);
+
+		// return $request;
 	}
 
-	public function activarUsuario(Request $request) {
-		$status = "";
-		$activado = Usuario::where("email", $request -> email);
-
-		if($activado) {
-			$activado -> activo = true;
-
-			$activado -> save();
-
-			$status = "OK";
-		} else {
-			$status = "NotFound";
-		}
-
-		return [
-			"status" => $status
-		];
+	public function getAlumnos() {
+		return Usuario::join();
 	}
 }
