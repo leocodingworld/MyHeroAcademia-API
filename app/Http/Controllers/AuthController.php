@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,9 +18,17 @@ class AuthController extends Controller
             return ;
         }
 
+		$datos = Usuario::where("email", $request -> email)
+			-> select(["nombre", "idUsuario", "tipo"])
+			-> first();
+
         return [
-            'token' => $request -> user() -> createToken('API Token') -> plainTextToken
+            'token' => $request -> user() -> createToken('API Token') -> plainTextToken,
+			"nombre" => $datos -> nombre,
+			"id" => $datos -> idUsuario,
+			"nivel" => $datos -> tipo,
         ];
+
     }
 
 	/**

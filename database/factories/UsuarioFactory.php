@@ -31,7 +31,8 @@ class UsuarioFactory extends Factory
 			"email" => $this -> faker -> email(),
 			"telefono" => Str::replace("-", "", $this -> faker -> phoneNumber()),
 			"password" => bcrypt("123abc."),
-			"tipo" => $this -> faker -> randomElement([1, 2, 3]),
+			"activo" => $this -> faker -> randomElement([true, false]),
+			"nivel" => $this -> faker -> randomElement([1, 2, 3]),
         ];
     }
 }

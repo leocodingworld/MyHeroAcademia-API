@@ -12,7 +12,7 @@ class Alumno extends Model
     use HasFactory;
 
 	protected $table = "alumnos";
-	protected $primaryKey = "idAlumno";
+	protected $primaryKey = "id";
 	public $incrementing = false;
 	public $timestamps = false;
 

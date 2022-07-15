@@ -1,9 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UsuarioController;
 use App\Models\Usuario;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get("/test", function() {
+	return Usuario::where("nivel", 1) -> paginate(40);
+});
 
 Route::controller(AuthController::class) -> group(function() {
 	Route::post("/login", "login"); // OK
@@ -23,7 +26,7 @@ Route::controller(AuthController::class) -> group(function() {
 });
 
 Route::controller(UsuarioController::class) -> group(function() {
-	Route::get("/datos/{usuario}", "getUsuarioData"); // cambiarlo más adelante
+	Route::get("/datos/{usuario}", "getUsuarioData");
 	Route::get("/usuarios", "getUsuarios");
 
 	Route::post("/nuevo", "nuevoUsuario");
