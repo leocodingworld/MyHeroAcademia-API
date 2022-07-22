@@ -8,51 +8,41 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function login(Request $request) {
+	public function login(Request $request) {
 		$attr = $request->validate([
-            'email' => 'required|string|email|',
-            'password' => 'required|string|'
-        ]);
+			'email' => 'required|string|email|',
+			'password' => 'required|string|'
+		]);
 
-        if (!Auth::attempt($attr)) {
-            return ;
-        }
+		if (!Auth::attempt($attr)) {
+			return [];
+		}
 
 		$datos = Usuario::where("email", $request -> email)
-			-> select(["nombre", "idUsuario", "tipo"])
+			-> select(["nombre", "apellidos", "id", "nivel"])
 			-> first();
 
-        return [
-            'token' => $request -> user() -> createToken('API Token') -> plainTextToken,
+		return [
+			'token' => $datos -> createToken('API Token') -> plainTextToken,
 			"nombre" => $datos -> nombre,
-			"id" => $datos -> idUsuario,
-			"nivel" => $datos -> tipo,
-        ];
+			"apellidos" => $datos -> apellidos,
+			"id" => $datos -> id,
+			"nivel" => $datos -> nivel,
+		];
 
-    }
+	}
 
-	/**
-	 * Pendiente de Arreglar
-	 */
-    public function logout(Request $request) {
-		// $message = [
-		// 	"Info" => "Testing"
-		// ];
+	public function logout(Request $request) {
+		$usuario = Usuario::where("id", $request -> id) -> first();
 
-		// try {
+		if(!$usuario -> tokens()) { // Revisar esto
+			return response("El usuario no tiene tokens", 400);
+		}
 
-		// 	// $token = $request -> user() -> tokens();
-		// 	// $token -> where("id", $token -> id) -> delete();
+		$usuario -> tokens() -> delete();
 
-		// 	$request -> user() -> currentAccessToken() -> delete();
+		return response("OK");
 
-		// 	$message["result"] = "OK";
-
-		// } catch (Exception $e) {
-		// 	$message["result"] = "NOP";
-		// 	$message["error"] = $e -> getMessage();
-		// }
-
-        return auth() -> user();
-    }
+		// return response() -> json(!$usuario -> tokens());
+	}
 }

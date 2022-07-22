@@ -17,7 +17,7 @@ class Alumno extends Model
 	public $timestamps = false;
 
 	public function idAlumno() {
-		return $this -> hasMany(Usuario::class, "idAlumno");
+		return $this -> hasMany(Usuario::class, "id");
 	}
 
 	protected $filliable = [

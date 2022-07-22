@@ -13,12 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
+		// Schema::createDatabase("mha");
+
         Schema::create("usuarios", function(Blueprint $table) {
 			$table -> id("id");
 
 			$table -> string("dni", 9);
 			$table -> string("nombre", 25);
 			$table -> string("apellidos", 35);
+			$table -> set("sexo", ["Hombre", "Mujer", "No comenta"]);
+
 			$table -> string("direccion");		// ------------
 			$table -> string("localidad");		//
 			$table -> string("municipio");		// Cambiar los valores de los varchar
@@ -26,10 +30,21 @@ return new class extends Migration
 			$table -> string("codigoPostal");	//
 			$table -> string("telefono"); 		// -------------
 			$table -> string("fechaNacimiento", 10);
-			$table -> string("email");
+			$table -> string("email") -> unique();
 			$table -> binary("password"); // Cambiar de lugar
-			$table -> boolean("activo") -> default(false);
+			$table -> boolean("activo") -> default(true);
 			$table -> tinyInteger("nivel", false, true);
+		});
+
+		Schema::create("passwd", function(Blueprint $table) {
+			$table -> unsignedBigInteger("id", true);
+			$table -> unsignedBigInteger("usuario");
+			$table -> binary("passwd");
+
+			$table
+				-> foreign("usuario")
+				-> references("id")
+				-> on("usuarios");
 		});
 
 		Schema::create("personal", function(Blueprint $table) {
@@ -111,41 +126,39 @@ return new class extends Migration
 				-> on("alumnos");
 		});
 
-		/**
-		 * Queda Pendiente de revisar. Falta el poner notas y observaciones
-		 */
 		Schema::create("expedientes", function(Blueprint $table) {
 			$table -> unsignedBigInteger("numero", false);
-			$table -> unsignedBigInteger("alumno", false);
-			$table -> unsignedBigInteger("curso", false);
-			$table -> unsignedBigInteger("modulo", false);
-			$table -> set("periodo", [
-				"1a Evaluación",
-				"2a Evaluación",
-				"3a Evaluación",
-				"Final Ordinaria",
-				"Primera Convocatoria"
-			]);
-			$table -> string("observaciones");
+			$table -> unsignedBigInteger("alumno", false) -> unique();
 
-			$table -> primary([
-				"numero",
-				"alumno",
-				"curso",
-				"modulo",
-				"periodo",
-				"observaciones"
-			], "pk");
+			$table -> primary("numero");
 
 			$table
 				-> foreign("alumno")
 				-> references("id")
 				-> on("alumnos");
+		});
+
+		Schema::create("lineasExpedientes", function(Blueprint $table) {
+			$table -> unsignedBigInteger("expediente", false);
+			$table -> unsignedBigInteger("numero", false);
+			$table -> string("anho", 9); // formato YYYY/YYYY
+			$table -> set("periodo", [
+				"General",
+				"Evaluación Inicial",
+				"1ª Evaluación",
+				"2ª Evaluación",
+				"1ª Convocatoria Final Ordinaria",
+				"2ª Convocatoria Final Ordinaria",
+				"1ª Convocatoria Final Extraordinaria",
+				"2ª Convocatoria Final Extraordinaria"
+			]);
+
+			$table -> primary(["expedientes", "numero"]);
 
 			$table
-				-> foreign(["curso", "modulo"])
-				-> references(["curso", "id"])
-				-> on("modulos");
+				-> foreign("expediente")
+				-> references("numero")
+				-> on("expedientes");
 		});
     }
 
@@ -156,12 +169,6 @@ return new class extends Migration
      */
     public function down()
     {
-		Schema::dropIfExists("expedientes");
-		Schema::dropIfExists("alumModul");
-		Schema::dropIfExists("modulos");
-		Schema::dropIfExists("cursos");
-		Schema::dropIfExists("alumnos");
-		Schema::dropIfExists("personal");
-		Schema::dropIfExists("usuarios");
+		Schema::dropDatabaseIfExists("mha");
     }
 };

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Usuario;
-use GuzzleHttp\Utils;
 use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
@@ -30,17 +29,17 @@ class UsuarioController extends Controller
 		return response("Correcto", 200);
 	}
 
-	public function desactivarUsuario(Request $request) { // Revisar
+	public function desactivarUsuario(Request $request) { // Funciona? A veces, sí otras no
 
-		// if(!$request -> id) {
-		// 	return response("No hay datos", 400);
-		// }
+		if(!$request -> id) {
+			return response("No hay datos", 400);
+		}
 
-		// $desactivar = Usuario::where("id", $request -> id) -> first();
-		// $desactivar -> activo = false;
-		// $desactivar -> save();
+		$desactivar = Usuario::where("id", $request -> id) -> first();
+		$desactivar -> activo = false;
+		$desactivar -> save();
 
-		// return response("Correcto", 200);
+		return response("Correcto", 200);
 	}
 
 	public function getAlumnos() {
@@ -51,7 +50,7 @@ class UsuarioController extends Controller
 		return;
 	}
 
-	public function editarUsuario($id, Request $request) {
+	public function editarUsuario(Request $request) {
 
 	}
 }

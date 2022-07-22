@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UsuarioController;
-use App\Models\Usuario;
+use App\Http\Controllers\AlumnoController;
+use App\Http\Controllers\ModuloController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,26 +17,70 @@ use App\Models\Usuario;
 |
 */
 
-Route::get("/test", function() {
-	return Usuario::where("nivel", 1) -> paginate(40);
-});
-
 Route::controller(AuthController::class) -> group(function() {
-	Route::post("/login", "login"); // OK
+	Route::post("/login", "login");
 	Route::post("/logout", "logout");
 });
 
-Route::controller(UsuarioController::class) -> group(function() {
-	Route::get("/datos/{usuario}", "getUsuarioData");
-	Route::get("/usuarios", "getUsuarios");
+Route::prefix("/usuarios") -> group(function() {
+	Route::controller(UsuarioController::class) -> group(function() {
+		Route::get("/datos/{usuario}", "getUsuarioData");
+		Route::get("/", "getUsuarios");
 
-	Route::post("/nuevo", "nuevoUsuario");
+		Route::post("/nuevo", "nuevoUsuario");
 
-	Route::put("/editar", "editarUsuario");
-	Route::put("/activar", "activarUsuario");
-	Route::put("/desactivar", "desactivarUsuario");
+		Route::put("/editar", "editarUsuario");
+		Route::put("/activar", "activarUsuario");
+		Route::put("/desactivar", "desactivarUsuario");
+	});
 });
 
-Route::middleware("auth:sanctum") -> group(function() {
-
+Route::prefix("/alumnos") -> group(function() {
+	Route::controller(AlumnoController::class) -> group(function() {
+		Route::get("/", "getAlumnos");
+		Route::get("/modulo/{modulo}", "getAlumnosPorModulo");
+	});
 });
+
+Route::prefix("/modulos") -> group(function() {
+	Route::controller(ModuloController::class) -> group(function() {
+		Route::get("/", "getModulos");
+		Route::get("/{profesor}", "getModulosPorProfesor");
+
+	});
+});
+
+Route::prefix("/expedientes") -> group(function() {
+	Route::controller() -> group(function() {
+
+	});
+});
+
+// Route::middleware("auth:sanctum") -> group(function() {
+// 	Route::prefix("/usuarios") -> group(function() {
+// 		Route::controller(UsuarioController::class) -> group(function() {
+// 			Route::get("/datos/{usuario}", "getUsuarioData");
+// 			Route::get("/", "getUsuarios");
+
+// 			Route::post("/nuevo", "nuevoUsuario");
+
+// 			Route::put("/editar", "editarUsuario");
+// 			Route::put("/activar", "activarUsuario");
+// 			Route::put("/desactivar", "desactivarUsuario");
+// 		});
+// 	});
+
+// 	Route::prefix("/alumnos") -> group(function() {
+// 		Route::controller(AlumnoController::class) -> group(function() {
+// 			Route::get("/", "getAlumnos");
+// 			Route::get("/modulo/{modulo}", "getAlumnosPorModulo");
+// 		});
+// 	});
+
+// 	Route::prefix("/modulos") -> group(function() {
+// 		Route::controller(ModuloController::class) -> group(function() {
+// 			Route::get("/", "getModulos");
+// 			Route::get("/{profesor}", "getModulosPorProfesor");
+// 		});
+// 	});
+// });
