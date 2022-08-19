@@ -27,7 +27,7 @@ Route::prefix("/usuarios") -> group(function() {
 		Route::get("/datos/{usuario}", "getUsuarioData");
 		Route::get("/", "getUsuarios");
 
-		Route::post("/nuevo", "nuevoUsuario");
+		Route::post("/nuevo", "createUsuario");
 
 		Route::put("/editar", "editarUsuario");
 		Route::put("/activar", "activarUsuario");

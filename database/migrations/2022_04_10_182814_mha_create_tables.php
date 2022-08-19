@@ -18,10 +18,10 @@ return new class extends Migration
         Schema::create("usuarios", function(Blueprint $table) {
 			$table -> id("id");
 
-			$table -> string("dni", 9);
+			$table -> string("dni", 9) -> unique();
 			$table -> string("nombre", 25);
 			$table -> string("apellidos", 35);
-			$table -> set("sexo", ["Hombre", "Mujer", "No comenta"]);
+			// $table -> set("sexo", ["Hombre", "Mujer", "No comenta"]);
 
 			$table -> string("direccion");		// ------------
 			$table -> string("localidad");		//

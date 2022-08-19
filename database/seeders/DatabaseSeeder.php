@@ -19,10 +19,10 @@ class DatabaseSeeder extends Seeder
     {
 
 
-		// Usuario::factory(150) -> create();
+		Usuario::factory(25) -> create();
 		// $modulos1 = Modulo::where("curso", 1) -> get();
 		// $modulos2 = Modulo::where("curso", 5) -> get();
-		// $alumnos = Usuario::where("nivel", 1) -> paginate(40);
+		// $alumnos = Usuario::where("nivel", 1) -> paginate(10);
 
 		// foreach($modulos1 as $m) {
 		// 	for($i = 0; $i < 19; $i++) {

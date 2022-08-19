@@ -7,6 +7,29 @@ use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
 {
+	public function createUsuario(Request $request) {
+		$usuario = Usuario::insert([
+			"dni" => $request -> dni,
+			"nombre" => $request -> nombre,
+			"apellidos" => $request -> apellidos,
+			"direccion" => $request -> direccion,
+			"municipio" => $request -> municipio,
+			"localidad" => $request -> localidad,
+			"provincia" => $request -> provincia,
+			"codigoPostal" => $request -> codigoPostal,
+			"telefono" => $request -> telefono,
+			"fechaNacimiento" => $request -> fechaNacimiento,
+			"email" => $request -> email,
+			"password" => bcrypt("123abc.") ,
+			"nivel" => $request -> nivel
+		]);
+
+		$status = $usuario ? "200" : "400";
+		$mensaje = $usuario ? "OK" : "ERR";
+
+		return response($mensaje, $status);
+	}
+
 	public function getUsuarios() {
 		return Usuario::all();
 	}

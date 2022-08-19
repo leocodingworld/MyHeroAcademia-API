@@ -16,14 +16,19 @@ class Usuario extends Authenticatable
 	public $timestamps = false;
 
 	protected $fillable = [
+		"dni",
 		"nombre",
 		"apellidos",
 		"direccion",
+		"municipio",
+		"localidad",
+		"provincia",
+		"codigoPostal",
 		"telefono",
+		"fechaNacimiento",
 		"email",
 		"password",
-		"tipo",
-		"activo"
+		"nivel"
 	];
 
 	protected $hidden = [
