@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
 {
+	// CREATE
+
 	public function createUsuario(Request $request) {
 		$usuario = Usuario::insert([
 			"dni" => $request -> dni,
@@ -24,11 +26,21 @@ class UsuarioController extends Controller
 			"nivel" => $request -> nivel
 		]);
 
-		$status = $usuario ? "200" : "400";
+		$status = $usuario ? "200" : "500";
 		$mensaje = $usuario ? "OK" : "ERR";
 
 		return response($mensaje, $status);
 	}
+
+	private function createAlumno(Usuario $usuario) {
+
+	}
+
+	private function createPersonal(Usuario $usuario) {
+
+	}
+
+	// READ
 
 	public function getUsuarios() {
 		return Usuario::all();
@@ -37,6 +49,16 @@ class UsuarioController extends Controller
 	public function getUsuarioData($usuario) { // OK
 		return Usuario::where("id", $usuario) -> first();
 	}
+
+	public function getAlumnos() {
+		return Usuario::join();
+	}
+
+	public function getPersonal() {
+		return;
+	}
+
+	// UPDATE
 
 	public function activarUsuario(Request $request) { // OK
 
@@ -63,14 +85,6 @@ class UsuarioController extends Controller
 		$desactivar -> save();
 
 		return response("Correcto", 200);
-	}
-
-	public function getAlumnos() {
-		return Usuario::join();
-	}
-
-	public function getPersonal() {
-		return;
 	}
 
 	public function editarUsuario(Request $request) {
