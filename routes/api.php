@@ -26,6 +26,7 @@ Route::prefix("/usuarios") -> group(function() {
 	Route::controller(UsuarioController::class) -> group(function() {
 		Route::get("/datos/{usuario}", "getUsuarioData");
 		Route::get("/", "getUsuarios");
+		Route::get("/email/{email}", "checkEmail");
 
 		Route::post("/nuevo", "createUsuario");
 

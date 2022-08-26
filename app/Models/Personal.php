@@ -14,11 +14,8 @@ class Personal extends Model
 	public $incrementing = false;
 	public $timestamps = false;
 
-	public function idPersonal() {
-		return $this -> hasMany(Usuario::class);
-	}
-
 	protected $filliable = [
+		"id",
 		"numSegSocial",
 		"puesto"
 	];

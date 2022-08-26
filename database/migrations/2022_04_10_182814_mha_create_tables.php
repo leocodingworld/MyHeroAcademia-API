@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-		// Schema::createDatabase("mha");
-
         Schema::create("usuarios", function(Blueprint $table) {
 			$table -> id("id");
 
 			$table -> string("dni", 9) -> unique();
 			$table -> string("nombre", 25);
 			$table -> string("apellidos", 35);
-			// $table -> set("sexo", ["Hombre", "Mujer", "No comenta"]);
+			$table -> set("sexo", ["Hombre", "Mujer", "No comenta"]);
 
 			$table -> string("direccion");		// ------------
 			$table -> string("localidad");		//
@@ -141,7 +139,8 @@ return new class extends Migration
 		Schema::create("lineasExpedientes", function(Blueprint $table) {
 			$table -> unsignedBigInteger("expediente", false);
 			$table -> unsignedBigInteger("numero", false);
-			$table -> string("anho", 9); // formato YYYY/YYYY
+			$table -> date("fecha");
+			$table -> unsignedBigInteger("personal", false);
 			$table -> set("periodo", [
 				"General",
 				"Evaluación Inicial",
@@ -152,6 +151,8 @@ return new class extends Migration
 				"1ª Convocatoria Final Extraordinaria",
 				"2ª Convocatoria Final Extraordinaria"
 			]);
+			$table -> tinyInteger("calificacion"); // Opción -1?
+			$table -> text("observaciones");
 
 			$table -> primary(["expedientes", "numero"]);
 
@@ -169,6 +170,6 @@ return new class extends Migration
      */
     public function down()
     {
-		Schema::dropDatabaseIfExists("mha");
+
     }
 };

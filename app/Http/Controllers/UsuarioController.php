@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alumno;
+use App\Models\Personal;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 
@@ -10,7 +12,7 @@ class UsuarioController extends Controller
 	// CREATE
 
 	public function createUsuario(Request $request) {
-		$usuario = Usuario::insert([
+		$usuario = Usuario::create([
 			"dni" => $request -> dni,
 			"nombre" => $request -> nombre,
 			"apellidos" => $request -> apellidos,
@@ -26,24 +28,39 @@ class UsuarioController extends Controller
 			"nivel" => $request -> nivel
 		]);
 
-		$status = $usuario ? "200" : "500";
-		$mensaje = $usuario ? "OK" : "ERR";
+		// Buscar error
 
-		return response($mensaje, $status);
+		if($request -> nivel == 1) {
+			$this::createAlumno($usuario);
+		} else {
+			$this::createPersonal($usuario);
+		}
+
+		return true;
 	}
 
-	private function createAlumno(Usuario $usuario) {
+	private static function createAlumno(Usuario $usuario) {
+		$alumno = Alumno::create([
+			"id" => $usuario -> id,
+			"fechaMatricula" => date("Y-m-d")
+		]);
 
+		return $alumno;
 	}
 
-	private function createPersonal(Usuario $usuario) {
+	private static function createPersonal(Usuario $usuario) {
+		$personal = Personal::create([
+			"id" => $usuario -> id
+		]);
 
+		return $personal;
 	}
 
 	// READ
 
 	public function getUsuarios() {
-		return Usuario::all();
+		return Usuario::select("id", "nombre", "apellidos", "activo", "dni", "nivel")
+			-> get();
 	}
 
 	public function getUsuarioData($usuario) { // OK
@@ -56,6 +73,14 @@ class UsuarioController extends Controller
 
 	public function getPersonal() {
 		return;
+	}
+
+	public function checkEmail($email) {
+		return Usuario::where("email", $email) -> select("id") -> first();
+	}
+
+	public function checkDNI(Request $request) {
+
 	}
 
 	// UPDATE
@@ -71,7 +96,7 @@ class UsuarioController extends Controller
 		$activar -> activo = true;
 		$activar -> save();
 
-		return response("Correcto", 200);
+		return true;
 	}
 
 	public function desactivarUsuario(Request $request) { // Funciona? A veces, sí otras no

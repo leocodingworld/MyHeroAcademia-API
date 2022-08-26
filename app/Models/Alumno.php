@@ -16,11 +16,12 @@ class Alumno extends Model
 	public $incrementing = false;
 	public $timestamps = false;
 
-	public function idAlumno() {
-		return $this -> hasMany(Usuario::class, "id");
-	}
-
 	protected $filliable = [
+		"id",
 		"fechaMatricula"
+	];
+
+	protected $guarded = [
+		"id"
 	];
 }
