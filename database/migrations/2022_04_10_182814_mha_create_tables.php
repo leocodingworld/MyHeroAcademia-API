@@ -19,7 +19,7 @@ return new class extends Migration
 			$table -> string("dni", 9) -> unique();
 			$table -> string("nombre", 25);
 			$table -> string("apellidos", 35);
-			$table -> set("sexo", ["Hombre", "Mujer", "No comenta"]);
+			// $table -> set("sexo", ["Hombre", "Mujer", "No comenta"]);
 
 			$table -> string("direccion");		// ------------
 			$table -> string("localidad");		//
@@ -126,7 +126,7 @@ return new class extends Migration
 
 		Schema::create("expedientes", function(Blueprint $table) {
 			$table -> unsignedBigInteger("numero", false);
-			$table -> unsignedBigInteger("alumno", false) -> unique();
+			$table -> unsignedBigInteger("alumno", false);
 
 			$table -> primary("numero");
 
@@ -137,10 +137,10 @@ return new class extends Migration
 		});
 
 		Schema::create("lineasExpedientes", function(Blueprint $table) {
-			$table -> unsignedBigInteger("expediente", false);
-			$table -> unsignedBigInteger("numero", false);
-			$table -> date("fecha");
-			$table -> unsignedBigInteger("personal", false);
+			$table -> unsignedBigInteger("expediente");
+			$table -> unsignedBigInteger("linea");
+			$table -> unsignedBigInteger("curso");
+			$table -> unsignedBigInteger("modulo");
 			$table -> set("periodo", [
 				"General",
 				"Evaluación Inicial",
@@ -151,15 +151,21 @@ return new class extends Migration
 				"1ª Convocatoria Final Extraordinaria",
 				"2ª Convocatoria Final Extraordinaria"
 			]);
-			$table -> tinyInteger("calificacion"); // Opción -1?
-			$table -> text("observaciones");
+			$table -> date("fecha");
+			$table -> tinyInteger("calificacion");
+			$table -> text("observaciones") -> nullable();
 
-			$table -> primary(["expedientes", "numero"]);
+			$table -> primary(["expedientes", "linea"]);
 
 			$table
 				-> foreign("expediente")
 				-> references("numero")
 				-> on("expedientes");
+
+			$table
+				-> foreign(["curso", "modulo"])
+				-> references(["curso", "id"])
+				-> on("modulos");
 		});
     }
 
