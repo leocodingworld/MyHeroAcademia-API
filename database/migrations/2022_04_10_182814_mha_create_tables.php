@@ -19,7 +19,7 @@ return new class extends Migration
 			$table -> string("dni", 9) -> unique();
 			$table -> string("nombre", 25);
 			$table -> string("apellidos", 35);
-			// $table -> set("sexo", ["Hombre", "Mujer", "No comenta"]);
+			// $table -> string("sexo", 6);
 
 			$table -> string("direccion");		// ------------
 			$table -> string("localidad");		//
@@ -27,7 +27,7 @@ return new class extends Migration
 			$table -> string("provincia");		//
 			$table -> string("codigoPostal");	//
 			$table -> string("telefono"); 		// -------------
-			$table -> string("fechaNacimiento", 10);
+			$table -> date("fechaNacimiento");
 			$table -> string("email") -> unique();
 			$table -> binary("password"); // Cambiar de lugar
 			$table -> boolean("activo") -> default(true);
@@ -105,7 +105,7 @@ return new class extends Migration
 				-> on("personal");
 		});
 
-		Schema::create("alumModul", function(Blueprint $table) {
+		Schema::create("alumnoModulo", function(Blueprint $table) {
 			$table -> date("anho");
 			$table -> unsignedBigInteger("curso", false);
 			$table -> unsignedBigInteger("modulo", false);
@@ -125,8 +125,8 @@ return new class extends Migration
 		});
 
 		Schema::create("expedientes", function(Blueprint $table) {
-			$table -> unsignedBigInteger("numero", false);
-			$table -> unsignedBigInteger("alumno", false);
+			$table -> unsignedBigInteger("numero");
+			$table -> unsignedBigInteger("alumno");
 
 			$table -> primary("numero");
 
@@ -155,7 +155,7 @@ return new class extends Migration
 			$table -> tinyInteger("calificacion");
 			$table -> text("observaciones") -> nullable();
 
-			$table -> primary(["expedientes", "linea"]);
+			$table -> primary(["expediente", "linea"]);
 
 			$table
 				-> foreign("expediente")
@@ -176,6 +176,14 @@ return new class extends Migration
      */
     public function down()
     {
-
+		Schema::dropIfExists("lineasExpedientes");
+		Schema::dropIfExists("expedientes");
+		Schema::dropIfExists("alumnoModulo");
+		Schema::dropIfExists("modulos");
+		Schema::dropIfExists("cursos");
+		Schema::dropIfExists("alumnos");
+		Schema::dropIfExists("personal");
+		Schema::dropIfExists("passwd");
+		Schema::dropIfExists("usuarios");
     }
 };

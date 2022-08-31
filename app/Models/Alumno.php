@@ -20,8 +20,4 @@ class Alumno extends Model
 		"id",
 		"fechaMatricula"
 	];
-
-	protected $guarded = [
-		"id"
-	];
 }

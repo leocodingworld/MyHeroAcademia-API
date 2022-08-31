@@ -15,12 +15,12 @@ class Modulo extends Model
 	public $timestamps = false;
 
 	protected $fillable = [
+		"id",
 		"nombre",
 		"nombreCorto",
 		"nivel",
 		"profesor",
 		"horas",
-		"curso",
-		"id"
+		"curso"
 	];
 }

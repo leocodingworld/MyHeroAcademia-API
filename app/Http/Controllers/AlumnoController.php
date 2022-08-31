@@ -21,14 +21,19 @@ class AlumnoController extends Controller
 				usuarios.id,
 				usuarios.nombre,
 				usuarios.apellidos
-			FROM usuarios, alumnos, alummodul, modulos
+			FROM usuarios, alumnos, alumnoModulo, modulos
 			WHERE
 				usuarios.id = alumnos.id AND
-				alumnos.id = alummodul.alumno AND
-				alummodul.modulo = modulos.id AND
+				alumnos.id = alumnoModulo.alumno AND
+				alumnoModulo.modulo = modulos.id AND
 				modulos.id = ?
 		";
 
 		return DB::select($sql, [ $modulo ]);
+
+		// DB::table("usuarios")
+		// 	-> join("", "", "")
+		// 	-> join("", "", "")
+		// 	-> join("", "", "");
 	}
 }

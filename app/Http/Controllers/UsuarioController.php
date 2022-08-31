@@ -24,7 +24,7 @@ class UsuarioController extends Controller
 			"telefono" => $request -> telefono,
 			"fechaNacimiento" => $request -> fechaNacimiento,
 			"email" => $request -> email,
-			"password" => bcrypt("123abc.") ,
+			"password" => bcrypt("123abc."),
 			"nivel" => $request -> nivel
 		]);
 
@@ -36,7 +36,7 @@ class UsuarioController extends Controller
 			$this::createPersonal($usuario);
 		}
 
-		return true;
+		return $usuario != null ? true : false;
 	}
 
 	private static function createAlumno(Usuario $usuario) {

@@ -27,7 +27,7 @@ class Usuario extends Authenticatable
 		"telefono",
 		"fechaNacimiento",
 		"email",
-		"password",
+		"password", // Cambiar de sitio
 		"nivel"
 	];
 
