@@ -17,21 +17,10 @@ use Illuminate\Support\Facades\Artisan;
 |
 */
 
-Artisan::command("test", function() {
-	$alumnos = Alumno::select("id") -> get();
-	$i = 1;
+Artisan::command("test {modulo}", function($modulo) {
 
-	foreach($alumnos as $alumno) {
-		Expediente::insert([
-			"numero" => $i,
-			"alumno" => $alumno -> id
-		]);
-
-		$i++;
-
-		$this -> info("Expediente { $i, {$alumno -> id} }");
-	}
 });
+
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
