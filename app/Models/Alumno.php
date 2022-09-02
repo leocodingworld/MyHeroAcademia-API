@@ -9,12 +9,18 @@ use App\Models\Usuario;
 
 class Alumno extends Model
 {
-    use HasFactory;
-
 	protected $table = "alumnos";
 	protected $primaryKey = "id";
 	public $incrementing = false;
 	public $timestamps = false;
+
+	public function expediente() {
+		return $this -> hasOne(Expediente::class, "expediente", "id");
+	}
+
+	 public function modulos() {
+		return $this -> belongsToMany("");
+	 }
 
 	protected $filliable = [
 		"id",

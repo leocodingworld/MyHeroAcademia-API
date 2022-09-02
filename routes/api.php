@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\AlumnoController;
+use App\Http\Controllers\ExpedienteController;
 use App\Http\Controllers\ModuloController;
+use App\Models\LineasExpediente;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +19,8 @@ use App\Http\Controllers\ModuloController;
 |
 */
 
+Route::get("/test", function() {});
+
 Route::controller(AuthController::class) -> group(function() {
 	Route::post("/login", "login");
 	Route::post("/logout", "logout");
@@ -27,6 +31,7 @@ Route::prefix("/usuarios") -> group(function() {
 		Route::get("/datos/{usuario}", "getUsuarioData");
 		Route::get("/", "getUsuarios");
 		Route::get("/email/{email}", "checkEmail");
+		Route::get("/dni/{dni}", "checkDni");
 
 		Route::post("/nuevo", "createUsuario");
 
@@ -52,8 +57,8 @@ Route::prefix("/modulos") -> group(function() {
 });
 
 Route::prefix("/expedientes") -> group(function() {
-	Route::controller() -> group(function() {
-
+	Route::controller(ExpedienteController::class) -> group(function() {
+		Route::get("/alumno/{alumno}", "getLineasExpediente");
 	});
 });
 

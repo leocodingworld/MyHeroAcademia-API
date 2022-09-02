@@ -14,6 +14,10 @@ class Curso extends Model
 	public $incrementing = true;
 	public $timestamps = false;
 
+	public function modulos() {
+		return $this -> hasMany(Modulo::class, "curso", "id");
+	}
+
 	protected $fillable = [
 		"nombre",
 		"nombreCorto",

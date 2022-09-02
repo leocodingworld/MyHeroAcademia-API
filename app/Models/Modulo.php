@@ -10,9 +10,13 @@ class Modulo extends Model
     use HasFactory;
 
 	protected $table = "modulos";
-	protected $primaryKey = ["curso", "id"];
+	protected $primaryKey = "id"; // No se pueden crear Claves Compuestas
 	public $incrementing = false;
 	public $timestamps = false;
+
+	public function cursoInfo() {
+		return $this -> belongsTo(Curso::class, "curso", "id");
+	}
 
 	protected $fillable = [
 		"id",
