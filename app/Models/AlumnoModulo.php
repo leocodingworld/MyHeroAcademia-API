@@ -2,14 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-// Borrar?
-class AlumnoModulo extends Model
+class AlumnoModulo extends Pivot
 {
-	protected $table = "alumnoModulo";
-	protected $primaryKey = "alumno";
-	public $incrementing = false;
-	public $timestamps = false;
+    //
 }

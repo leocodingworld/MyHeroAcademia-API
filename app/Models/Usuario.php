@@ -19,6 +19,7 @@ class Usuario extends Authenticatable
 		"dni",
 		"nombre",
 		"apellidos",
+		"sexo",
 		"direccion",
 		"municipio",
 		"localidad",
@@ -27,11 +28,16 @@ class Usuario extends Authenticatable
 		"telefono",
 		"fechaNacimiento",
 		"email",
-		"password", // Cambiar de sitio
 		"nivel"
 	];
 
-	protected $hidden = [
-		"password"
-	];
+	protected $hidden = [ "password" ];
+
+	public function alumno() {
+		return $this -> hasOne(Alumno::class, "id", "id");
+	}
+
+	public function personal() {
+		return $this -> hasOne(Personal::class, "id", "id");
+	}
 }

@@ -2,13 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Personal extends Model
 {
-    use HasFactory;
-
 	protected $table = "personal";
 	protected $primaryKey = "id";
 	public $incrementing = false;
@@ -19,4 +16,8 @@ class Personal extends Model
 		"numSegSocial",
 		"puesto"
 	];
+
+	public function info() {
+		return $this -> belongsTo(Usuario::class, "id", "id");
+	}
 }

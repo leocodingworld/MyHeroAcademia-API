@@ -19,7 +19,9 @@ use App\Models\LineasExpediente;
 |
 */
 
-Route::get("/test", function() {});
+Route::get("/test", function() {
+	return "OK";
+})-> middleware("auth:sanctum");
 
 Route::controller(AuthController::class) -> group(function() {
 	Route::post("/login", "login");

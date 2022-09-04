@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Usuario>
@@ -29,10 +28,11 @@ class UsuarioFactory extends Factory
 			"codigoPostal" => $this -> faker -> postcode(),
 			"fechaNacimiento" => $this -> faker -> date(),
 			"email" => $this -> faker -> email(),
-			"telefono" => Str::replace("-", "", $this -> faker -> phoneNumber()),
+			"telefono" => $this -> faker -> phoneNumber(),
 			"password" => bcrypt("123abc."),
 			"activo" => $this -> faker -> randomElement([true, false]),
 			"nivel" => $this -> faker -> randomElement([1, 2, 3]),
+			"sexo" => $this -> faker -> randomElement(["Hombre", "Mujer"])
         ];
     }
 }

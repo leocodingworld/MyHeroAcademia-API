@@ -3,12 +3,12 @@
 namespace Database\Seeders;
 
 use App\Models\Alumno;
+use App\Models\Expediente;
 use App\Models\Usuario;
 use App\Models\Modulo;
+use App\Models\Password;
 use App\Models\Personal;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,38 +19,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-		// Usuario::factory(50) -> create();
-		// $usuarios = Usuario::select(["id", "nivel"]) -> get();
+		Usuario::factory(50) -> create();
 
-		// $usuarios -> each(function($usuario) {
-		// 	if($usuario -> nivel == 1) {
-		// 		Alumno::insert([
-		// 			"id" => $usuario -> id,
-		// 			"fechaMatricula" => "2022-08-29"
-		// 		]);
-		// 	} else {
-		// 		Personal::insert([
-		// 			"id" => $usuario -> id,
-		// 			"numSegSocial" => "01234567890",
-		// 			"puesto" => "No Asisgnado"
-		// 		]);
-		// 	}
-		// });
+		$alumnos = Usuario::where("nivel", 1) -> get();
+		$personal = Usuario::where("nivel", "!=", 1) -> get();
 
-		$alumnos = Alumno::select("id") -> get();
-		$modulos = Modulo::select(["id", "curso"])
-			-> whereIn("curso", [1, 2, 3, 4, 5])
-			-> get();
+		$alumnos -> each(function($alumno){
+			Alumno::insert([
+				"id" => $alumno -> id,
+				"fechaMatricula" => date("Y-m-d")
+			]);
 
-		$modulos -> each(function($modulo) use ($alumnos) {
-			$alumnos -> each(function($alumno) use ($modulo) {
-				DB::table("alumnoModulo") -> insert([
-					"anho" => date("Y-m-d"),
-					"alumno" => $alumno -> id,
-					"curso" => $modulo -> curso,
-					"modulo" => $modulo -> id
-				]);
-			});
+			Expediente::insert([
+				"alumno" => $alumno -> id
+			]);
+		});
+
+		$personal -> each(function($empleado) {
+			Personal::insert([
+				"id" => $empleado -> id,
+				"numSegSocial" => "12345678910",
+				"puesto" => "No Asignado"
+			]);
 		});
     }
 }

@@ -2,29 +2,31 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Modulo extends Model
 {
-    use HasFactory;
-
 	protected $table = "modulos";
-	protected $primaryKey = "id"; // No se pueden crear Claves Compuestas
+	protected $primaryKey = "id";
 	public $incrementing = false;
 	public $timestamps = false;
 
-	public function cursoInfo() {
-		return $this -> belongsTo(Curso::class, "curso", "id");
-	}
-
 	protected $fillable = [
 		"id",
+		"idCurso",
 		"nombre",
 		"nombreCorto",
 		"nivel",
-		"profesor",
+		"tutor",
 		"horas",
-		"curso"
 	];
+
+	public function curso() {
+		return $this -> belongsTo(Curso::class, "idCurso", "id");
+	}
+
+	public function alumnos() {
+		return $this
+			-> belongsToMany(Modulo::class, "alumnomodulo", "modulo", "alumno");
+	}
 }

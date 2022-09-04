@@ -12,6 +12,8 @@ class Expediente extends Model
 	public $incrementing = true;
 	public $timestamps = false;
 
+	protected $fillable = ["id", "alumno"];
+
 	public function lineasExpediente() {
 		// Clase, columnaForánea, ColumnaLocal
 		return $this -> hasMany(LineasExpediente::class, "expediente", "numero");
@@ -21,8 +23,6 @@ class Expediente extends Model
 		// Clase, columnaLocal, columnaForánea
 		return $this -> belongsTo(Alumno::class, "alumno", "id");
 	}
-
-	protected $fillable = ["id", "alumno"];
 }
 
 

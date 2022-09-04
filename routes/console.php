@@ -5,6 +5,7 @@ use App\Models\Expediente;
 use App\Models\Usuario;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +18,8 @@ use Illuminate\Support\Facades\Artisan;
 |
 */
 
-Artisan::command("test {modulo}", function($modulo) {
+Artisan::command("test {word}", function($word) {
+	$this -> info(Str::limit($word, 1, ""));
 
 });
 

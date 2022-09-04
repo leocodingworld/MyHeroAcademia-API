@@ -2,10 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
-use App\Models\Usuario;
 
 class Alumno extends Model
 {
@@ -14,16 +11,21 @@ class Alumno extends Model
 	public $incrementing = false;
 	public $timestamps = false;
 
+	protected $filliable = [
+		"id",
+		"fechaMatricula"
+	];
+
+	public function info() {
+		return $this -> belongsTo(Usuario::class, "id", "id");
+	}
+
 	public function expediente() {
 		return $this -> hasOne(Expediente::class, "expediente", "id");
 	}
 
 	 public function modulos() {
-		return $this -> belongsToMany("");
+		return $this
+			-> belongsToMany(Modulo::class, "alumnomodulo", "modulo", "alumno");
 	 }
-
-	protected $filliable = [
-		"id",
-		"fechaMatricula"
-	];
 }
