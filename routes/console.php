@@ -18,8 +18,7 @@ use Illuminate\Support\Str;
 |
 */
 
-Artisan::command("test {word}", function($word) {
-	$this -> info(Str::limit($word, 1, ""));
+Artisan::command("test", function() {
 
 });
 

@@ -17,4 +17,12 @@ class ModuloController extends Controller
 			-> select(["modulos.id", "modulos.nivel", "cursos.nombreCorto", "modulos.nombre"])
 			-> get();
 	}
+
+	public function asignarModuloProfesor($modulo, $profesor) {
+		$m = Modulo::find($modulo);
+		$m -> tutor = $profesor;
+		$m -> save();
+
+
+	}
 }
