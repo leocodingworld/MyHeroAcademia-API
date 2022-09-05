@@ -19,7 +19,9 @@ use Illuminate\Support\Str;
 */
 
 Artisan::command("test", function() {
+	$a = Alumno::with("info") -> first();
 
+	$this -> info($a);
 });
 
 

@@ -41,7 +41,11 @@ class AuthController extends Controller
 		$tokenId = Str::limit($request -> bearerToken(), 1, "");
 
 		$usuario = Usuario::where("email", $request -> email) -> first();
-		$usuario -> tokens -> where("id", $tokenId) -> first -> delete();
+		$usuario
+			-> tokens
+			-> where("id", $tokenId)
+			-> first
+			-> delete();
 
 		return "OK?";
 	}

@@ -6,7 +6,6 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\ExpedienteController;
 use App\Http\Controllers\ModuloController;
-use App\Models\LineasExpediente;
 
 /*
 |--------------------------------------------------------------------------

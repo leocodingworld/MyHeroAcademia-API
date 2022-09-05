@@ -18,6 +18,10 @@ class Curso extends Model
 		return $this -> hasMany(Modulo::class, "curso", "id");
 	}
 
+	public function profesor() {
+		return $this -> belongsTo(Personal::class, "id", "tutor");
+	}
+
 	protected $fillable = [
 		"nombre",
 		"nombreCorto",
