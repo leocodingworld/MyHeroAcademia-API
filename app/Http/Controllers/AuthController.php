@@ -40,7 +40,7 @@ class AuthController extends Controller
 	public function logout(Request $request) {
 		$tokenId = Str::limit($request -> bearerToken(), 1, "");
 
-		$usuario = Usuario::where("email", $request -> email) -> first();
+		$usuario = Usuario::find($request -> id);
 		$usuario
 			-> tokens
 			-> where("id", $tokenId)

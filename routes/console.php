@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Alumno;
+use App\Models\Curso;
 use App\Models\Expediente;
 use App\Models\Usuario;
 use Illuminate\Foundation\Inspiring;
@@ -19,9 +20,7 @@ use Illuminate\Support\Str;
 */
 
 Artisan::command("test", function() {
-	$a = Alumno::with("info") -> first();
-
-	$this -> info($a);
+	// $modulo = Curso::where
 });
 
 
