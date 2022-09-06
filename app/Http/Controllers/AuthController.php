@@ -24,7 +24,7 @@ class AuthController extends Controller
 			-> first();
 
 		if(!$usuario -> activo) {
-			return ["estado" => "DES"];
+			return ["token" => "X"];
 		}
 
 		return [

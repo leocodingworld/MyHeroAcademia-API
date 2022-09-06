@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alumno;
+use App\Models\Expediente;
 use App\Models\Personal;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
@@ -31,24 +32,34 @@ class UsuarioController extends Controller
 		// Buscar error
 
 		if($request -> nivel == 1) {
-			$this::createAlumno($usuario);
+			$this -> createAlumno($usuario);
 		} else {
-			$this::createPersonal($usuario);
+			$this -> createPersonal($usuario);
 		}
 
 		return $usuario != null ? true : false;
 	}
 
-	private static function createAlumno(Usuario $usuario) {
+	private function createAlumno(Usuario $usuario) {
 		$alumno = Alumno::create([
 			"id" => $usuario -> id,
 			"fechaMatricula" => date("Y-m-d")
 		]);
 
+		$this -> createExpediente($alumno);
+
 		return $alumno;
 	}
 
-	private static function createPersonal(Usuario $usuario) {
+	private function createExpediente(Alumno | Usuario $alumno) {
+		$expediente = new Expediente();
+
+		$expediente -> alumno = $alumno -> id;
+
+		return $expediente;
+	}
+
+	private function createPersonal(Usuario $usuario) {
 		$personal = Personal::create([
 			"id" => $usuario -> id
 		]);
@@ -68,7 +79,6 @@ class UsuarioController extends Controller
 	}
 
 	public function getAlumnos() {
-		return Usuario::join();
 	}
 
 	public function getPersonal() {
@@ -79,14 +89,13 @@ class UsuarioController extends Controller
 		return Usuario::where("email", $email) -> select("id") -> first();
 	}
 
-	public function checkDNI(Request $request) {
-
+	public function checkDNI($dni) {
+		return Usuario::where("dni", $dni) -> select("id") -> first();
 	}
 
 	// UPDATE
 
-	public function activarUsuario(Request $request) { // OK
-
+	public function activarUsuario(Request $request) {
 		if(!$request -> id) {
 			return response("No hay datos", 400);
 		}
@@ -99,8 +108,7 @@ class UsuarioController extends Controller
 		return true;
 	}
 
-	public function desactivarUsuario(Request $request) { // Funciona? A veces, sí otras no
-
+	public function desactivarUsuario(Request $request) {
 		if(!$request -> id) {
 			return response("No hay datos", 400);
 		}

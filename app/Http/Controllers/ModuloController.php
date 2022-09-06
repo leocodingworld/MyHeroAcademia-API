@@ -11,18 +11,18 @@ class ModuloController extends Controller
 		return Modulo::all();
 	}
 
-	public function getModulosPorProfesor($profesor) { // OK
-		return Modulo::join("cursos", "modulos.curso", "=", "cursos.id")
-			-> where("modulos.profesor", $profesor)
-			-> select(["modulos.id", "modulos.nivel", "cursos.nombreCorto", "modulos.nombre"])
+	// Funciona
+	// Mejorar en mandar los parámetros que hagan falta
+	public function getModulosPorProfesor($profesor) {
+		return Modulo::with("curso:id,nombre,nombreCorto")
+			-> where("tutor", $profesor)
 			-> get();
 	}
 
 	public function asignarModuloProfesor($modulo, $profesor) {
 		$m = Modulo::find($modulo);
 		$m -> tutor = $profesor;
-		$m -> save();
 
-
+		return $m -> save() ? "OK" : "ERR";
 	}
 }

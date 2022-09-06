@@ -29,7 +29,7 @@ class Modulo extends Model
 		return $this -> belongsToMany(Modulo::class, "alumnomodulo", "modulo", "alumno");
 	}
 
-	public function tutor() {
-		return $this -> belongsTo(Personal::class, "id", "tutor");
+	public function profesor() {
+		return $this -> belongsTo(Personal::class, "tutor", "id");
 	}
 }
