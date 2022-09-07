@@ -26,7 +26,10 @@ class Modulo extends Model
 	}
 
 	public function alumnos() {
-		return $this -> belongsToMany(Modulo::class, "alumnomodulo", "modulo", "alumno");
+		return $this
+			-> belongsToMany(Modulo::class, "alumnomodulo", "modulo", "alumno")
+			->as("listado")
+			-> withPivot("alumno", "curso", "modulo");
 	}
 
 	public function profesor() {
