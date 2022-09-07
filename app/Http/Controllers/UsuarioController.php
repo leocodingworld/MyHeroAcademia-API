@@ -29,8 +29,6 @@ class UsuarioController extends Controller
 			"nivel" => $request -> nivel
 		]);
 
-		// Buscar error
-
 		if($request -> nivel == 1) {
 			$this -> createAlumno($usuario);
 		} else {
@@ -55,6 +53,7 @@ class UsuarioController extends Controller
 		$expediente = new Expediente();
 
 		$expediente -> alumno = $alumno -> id;
+		$expediente -> save();
 
 		return $expediente;
 	}

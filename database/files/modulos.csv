@@ -1,0 +1,108 @@
+id,idCurso,nombre,nombreCorto,horas,tutor
+1,1,"Sistemas Informáticos",SI,1,NULL
+2,1,"Bases de Datos",BD,1,NULL
+3,1,Programacion,PRO,1,NULL
+4,1,"Entornos de Desarrollo",ED,1,NULL
+5,1,"Lenguajes de marcas y sistemas de gestión de información",LMSGI,1,NULL
+6,2,"Diseño de Interfaces Web",DIW,1,NULL
+7,2,"Desarrollo web en entorno cliente",DWEC,1,NULL
+8,2,"Desarrollo web en entorno Servidor",DWES,1,NULL
+9,2,"Despliegue de aplicaciones web",DAW,1,NULL
+10,1,"Formación y orientación laboral",FOL,1,NULL
+11,2,"Empresa e iniciativa emprendedora",EIE,1,NULL
+12,2,"Formación en centros de trabajo",FCT,1,NULL
+13,2,"Proyecto de Desarrollo de Aplicaciones Web",ProyDA,1,NULL
+14,3,"Sistemas Informáticos",SI,1,NULL
+15,3,"Bases de Datos",BD,1,NULL
+16,3,Programacion,PRO,1,NULL
+17,3,"Entornos de Desarrollo",ED,1,NULL
+18,3,"Lenguajes de marcas y sistemas de gestión de información",LMSGI,1,NULL
+19,4,"Programación multimedia y dispositivos móviles",PMDM,1,NULL
+20,4,"Programación de servicios y procesos",PSP,1,NULL
+21,4,"Sistemas de gestión empresarial",SGE,1,NULL
+22,4,"Acceso a datos",AD,1,NULL
+23,4,"Desarrollo de Interfaces",DIN,1,NULL
+24,3,"Formación y orientación laboral",FOL,1,NULL
+25,4,"Empresa e iniciativa emprendedora",EIE,1,NULL
+26,4,"Formación en centros de trabajo",FCT,1,NULL
+27,4,"Proyecto de Desarrollo de Aplicaciones Multiplataforma",ProyDA,1,NULL
+28,5,"Implantación de Sistemas Operativos",ISO,1,NULL
+29,5,"Planificacion y Administración de Redes",PAR,1,NULL
+30,5,"Fundamentos de Hardware",FHW,1,NULL
+31,5,"Gestión de Base de Datos",GBD,1,NULL
+32,5,"Lenguajes de marcas y sistemas de gestión de información",LMSGI,1,NULL
+33,6,"Administración de Sistemas Operativos",ASO,1,NULL
+34,6,"Implatación de Aplicaciones Web",IAW,1,NULL
+35,6,"Administración de Sistemas Gestores de Bases de Datos",ASGBD,1,NULL
+36,6,"Servicios de Red e Internet",SRI,1,NULL
+37,6,"Seguridad y Alta Disponibilidad",SAD,1,NULL
+38,5,"Formación y orientación laboral",FOL,1,NULL
+39,6,"Empresa e iniciativa emprendedora",EIE,1,NULL
+40,6,"Formación en centros de trabajo",FCT,1,NULL
+41,6,"Proyecto de Administración de Sistemas Informáticos en Red",ProyAS,1,NULL
+42,7,"Configuración de infraestructuras de sistemas de telecomunicacion",CIST,1,NULL
+43,7,"Elementos de sistemas de telecomunicaciones",EST,1,NULL
+44,7,"Sistemas informáticos y redes locales",SIRL,1,NULL
+45,7,"Sistemas de radiocomunicaciones",SR,1,NULL
+46,7,"Sistemas de telefonía fija y móvil",STFM,1,NULL
+47,7,"Técnicas y procesos en infraestructuras de telecomunicaciones",TPIT,1,NULL
+48,8,"Sistemas integrados y hogar digital",SIHD,1,NULL
+49,8,"Sistemas de producción audiovisual",SPA,1,NULL
+50,8,"Redes telemáticas",RT,1,NULL
+51,7,"Formación y orientación laboral",FOL,1,NULL
+52,8,"Empresa e iniciativa emprendedora",EIE,1,NULL
+53,8,"Formación en centros de trabajo",FCT,1,NULL
+54,8,"Proyecto de Sistemas Electrónicos y Telecomunicaciones",ProySI,1,NULL
+55,9,"Materiales de producción gráfica",MPG,1,NULL
+56,9,"Organización de los procesos de preimpresión digital",OPPD,1,NULL
+57,9,"Diseño de productos gráficos",DPG,1,NULL
+58,9,"Comercialización de productos gráficos y atención al cliente",CPGAC,1,NULL
+59,10,"Gestión de la producción en procesos de edición",GPPE,1,NULL
+60,10,"Producción editorial",PE,1,NULL
+61,10,"Diseño estructutral de envase y embalaje",DEEE,1,NULL
+62,10,"Diseño y planificación de proyectos editoriales multimedia",DPPEM,1,NULL
+63,9,"Formación y orientación laboral",FOL,1,NULL
+64,10,"Empresa e iniciativa emprendedora",EIE,1,NULL
+65,10,"Formación en centros de trabajo",FCT,1,NULL
+66,10,"Proyecto de Diseño y Edición de Publicaciones Impresas y Multimed",ProyDE,1,NULL
+67,11,"Montaje y mantenimiento de equipos",MME,1,NULL
+68,11,"Sistemas operativos monopuesto",SOM,1,NULL
+69,11,"Aplicaciones ofimáticas",AO,1,NULL
+70,11,"Redes locales",RL,1,NULL
+71,12,"Sistemas operativos en red",SOR,1,NULL
+72,12,"Seguridad informática",SI,1,NULL
+73,12,"Servicios en red",SER,1,NULL
+74,12,"Aplicaciones web",AW,1,NULL
+75,11,"Formación y orientación laboral",FOL,1,NULL
+76,12,"Empresa e iniciativa emprendedora",EIE,1,NULL
+77,12,"Formación en centros de trabajo",FCT,1,NULL
+78,13,"Tratamiento de textos",TT,1,NULL
+79,13,"Tratamiento de imágenes en mapa de bits",TIMB,1,NULL
+80,13,"Imposición y obtención digital de la forma impresora",IODFI,1,NULL
+81,13,"Ilustración vectorial",IV,1,NULL
+82,13,"Identificación de materiales en preimpresión",IDP,1,NULL
+83,14,Compaginación,COM,1,NULL
+84,14,"Impresión digital",ID,1,NULL
+85,14,"Ensamblado de publicaciones electronicas",EPE,1,NULL
+86,13,"Formación y orientación laboral",FOL,1,NULL
+87,14,"Empresa e iniciativa emprendedora",EIE,1,NULL
+88,14,"Formación en centros de trabajo",FCT,1,NULL
+89,15,"Automatismos industriales",AI,1,NULL
+90,15,Electrónica,ELEC,1,NULL
+91,15,Electrotecnia,ELECT,1,NULL
+92,15,"Instalaciones eléctricas interiores",IEI,1,NULL
+93,16,"Instalaciones de distribución",IDI,1,NULL
+94,16,"Infraestructuras comunes de telecomunicación en viviendas y edifi",ICTVE,1,NULL
+95,16,"Instalaciones domóticas",IDO,1,NULL
+96,16,"Instalaciones solares fotovoltaicas",ISF,1,NULL
+97,16,"Máquinas eléctricas",ME,1,NULL
+98,15,"Formación y orientación laboral",FOL,1,NULL
+99,16,"Empresa e iniciativa emprendedora",EIE,1,NULL
+100,16,"Formación en centros de trabajo",FCT,1,NULL
+101,17,"Modelos de Inteligencia Artificial",MIA,1,NULL
+102,17,"Sistemas de aprendizaje automático",SAA,1,NULL
+103,17,"Programación de Inteligencia Artificial",PIA,1,NULL
+104,17,"Sistemas de Big Data",SBD,1,NULL
+105,17,"Big Data aplicado",BDA,1,NULL
+106,18,"Instalación de dispositivos y sistemas conectados",IDSC,1,NULL
+107,18,"Mantenimiento y reparación de dispositivos y sistemas conectados",MRDSC,1,NULL

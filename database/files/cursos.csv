@@ -1,0 +1,19 @@
+id,nombre,nombreCorto,tipo,nivel,tutor
+1,"Desarrollo de Aplicaciones Web",DAW,CFGS,1º,NULL
+2,"Desarrollo de Aplicaciones Web",DAW,CFGS,2º,NULL
+3,"Desarrollo de Aplicaciones Multiplataforma",DAM,CFGS,1º,NULL
+4,"Desarrollo de Aplicaciones Multiplataforma",DAM,CFGS,2º,NULL
+5,"Administración de Sistemas Informáticos en Red",ASIR,CFGS,1º,NULL
+6,"Administración de Sistemas Informáticos en Red",ASIR,CFGS,2º,NULL
+7,"Sistemas de Telecomunicaciones e Informáticos",STI,CFGS,1º,NULL
+8,"Sistemas de Telecomunicaciones e Informáticos",STI,CFGS,2º,NULL
+9,"Diseño y Edición de Publicaciones Impresas y Multi",DEPI,CFGS,1º,NULL
+10,"Diseño y Edición de Publicaciones Impresas y Multi",DEPI,CFGS,2º,NULL
+11,"Sistemas Microinformáticos en Red",SMR,CFGM,1º,NULL
+12,"Sistemas Microinformáticos en Red",SMR,CFGM,2º,NULL
+13,"Preimpresión Dgital",PRD,CFGM,1º,NULL
+14,"Preimpresión Dgital",PRD,CFGM,2º,NULL
+15,"Instalaciones Eléctricas y Automáticas",IEA,CFGM,1º,NULL
+16,"Instalaciones Eléctricas y Automáticas",IEA,CFGM,2º,NULL
+17,"Inteligencia Artificial y Big Data",IABD,FPCE,X,NULL
+18,"Instalación y Mantenimiento de sistemas IoT",IMSI,FPCE,X,NULL
