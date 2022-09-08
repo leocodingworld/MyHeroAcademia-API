@@ -16,7 +16,10 @@ class AuthController extends Controller
 		]);
 
 		if (!Auth::attempt($attr)) {
-			return [];
+			return response() -> json(
+				["mensaje" => "El email o la contraseña introducida es incorrecta"],
+				401
+			);
 		}
 
 		$usuario = Usuario::where("email", $request -> email)
@@ -24,7 +27,11 @@ class AuthController extends Controller
 			-> first();
 
 		if(!$usuario -> activo) {
-			return ["token" => "X"];
+			return response() -> json(
+				["mensaje" =>
+				"La cuenta está desactivada.\nContacte con el centro para obtener ayuda"],
+				403
+			);
 		}
 
 		return [
