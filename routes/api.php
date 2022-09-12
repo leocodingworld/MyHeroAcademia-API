@@ -46,6 +46,8 @@ Route::prefix("/alumnos") -> group(function() {
 	Route::controller(AlumnoController::class) -> group(function() {
 		Route::get("/", "getAlumnos");
 		Route::get("/modulo/{modulo}", "getAlumnosPorModulo");
+
+		Route::post("matricular/{curso}", "matricularAlumno");
 	});
 });
 
@@ -54,12 +56,17 @@ Route::prefix("/modulos") -> group(function() {
 		Route::get("/", "getModulos");
 		Route::get("/{profesor}", "getModulosPorProfesor");
 
+		Route::put("/asignar/{modulo}", "asignarTutorModulo");
 	});
 });
 
 Route::prefix("/expedientes") -> group(function() {
 	Route::controller(ExpedienteController::class) -> group(function() {
 		Route::get("/alumno/{alumno}", "getLineasExpediente");
+
+		Route::post("/linea/nueva", "createLineaExpediente");
+
+		Route::put("editar/linea/{linea}", "editarLineaExpediente");
 	});
 });
 
@@ -68,8 +75,10 @@ Route::prefix("/expedientes") -> group(function() {
 // 		Route::controller(UsuarioController::class) -> group(function() {
 // 			Route::get("/datos/{usuario}", "getUsuarioData");
 // 			Route::get("/", "getUsuarios");
+// 			Route::get("/email/{email}", "checkEmail");
+// 			Route::get("/dni/{dni}", "checkDni");
 
-// 			Route::post("/nuevo", "nuevoUsuario");
+// 			Route::post("/nuevo", "createUsuario");
 
 // 			Route::put("/editar", "editarUsuario");
 // 			Route::put("/activar", "activarUsuario");
@@ -81,6 +90,8 @@ Route::prefix("/expedientes") -> group(function() {
 // 		Route::controller(AlumnoController::class) -> group(function() {
 // 			Route::get("/", "getAlumnos");
 // 			Route::get("/modulo/{modulo}", "getAlumnosPorModulo");
+
+// 			Route::post("matricular/{curso}", "matricularAlumno");
 // 		});
 // 	});
 
@@ -88,6 +99,18 @@ Route::prefix("/expedientes") -> group(function() {
 // 		Route::controller(ModuloController::class) -> group(function() {
 // 			Route::get("/", "getModulos");
 // 			Route::get("/{profesor}", "getModulosPorProfesor");
+
+// 			Route::put("/asignar/{modulo}", "asignarTutorModulo");
+// 		});
+// 	});
+
+// 	Route::prefix("/expedientes") -> group(function() {
+// 		Route::controller(ExpedienteController::class) -> group(function() {
+// 			Route::get("/alumno/{alumno}", "getLineasExpediente");
+
+// 			Route::post("/linea/nueva", "createLineaExpediente");
+
+// 			Route::put("editar/linea/{linea}", "editarLineaExpediente");
 // 		});
 // 	});
 // });
