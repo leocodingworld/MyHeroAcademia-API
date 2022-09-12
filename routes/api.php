@@ -47,6 +47,8 @@ Route::prefix("/alumnos") -> group(function() {
 	Route::controller(AlumnoController::class) -> group(function() {
 		Route::get("/", "getAlumnos");
 		Route::get("/modulo/{modulo}", "getAlumnosPorModulo");
+
+		Route::post("matricular/{curso}", "matricularAlumno");
 	});
 });
 
@@ -90,6 +92,8 @@ Route::prefix("/expedientes") -> group(function() {
 // 		Route::controller(AlumnoController::class) -> group(function() {
 // 			Route::get("/", "getAlumnos");
 // 			Route::get("/modulo/{modulo}", "getAlumnosPorModulo");
+
+// 			Route::post("matricular/{curso}", "matricularAlumno");
 // 		});
 // 	});
 
