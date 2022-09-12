@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\LineasExpediente;
+use App\Models\LineaExpediente;
 
 class Expediente extends Model
 {
@@ -14,9 +14,9 @@ class Expediente extends Model
 
 	protected $fillable = ["id", "alumno"];
 
-	public function lineasExpediente() {
+	public function lineas() {
 		// Clase, columnaForánea, ColumnaLocal
-		return $this -> hasMany(LineasExpediente::class, "expediente", "numero");
+		return $this -> hasMany(LineaExpediente::class, "numExpediente", "numero");
 	}
 
 	public function alumnoId() {
@@ -24,6 +24,3 @@ class Expediente extends Model
 		return $this -> belongsTo(Alumno::class, "alumno", "id");
 	}
 }
-
-
-// $expediente = Expediente::find(16)

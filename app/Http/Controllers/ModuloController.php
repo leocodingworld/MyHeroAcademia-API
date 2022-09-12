@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Modulo;
+use Exception;
 use Illuminate\Http\Request;
 
 class ModuloController extends Controller
 {
     public function getModulos() {
 		return Modulo::all();
+	}
+
+	public function getAlumnosPorModulo($modulo) {
+		return Modulo::find($modulo) -> alumnos;
 	}
 
 	// Funciona
@@ -23,6 +28,16 @@ class ModuloController extends Controller
 		$m = Modulo::find($modulo);
 		$m -> tutor = $profesor;
 
-		return $m -> save() ? "OK" : "ERR";
+		try  {
+			$m -> saveOrFail();
+		} catch(Exception $e) {
+			return response() -> json([
+				"mensaje" => "No existe el profesor en la base de datos"
+			], 401);
+		}
+
+		return response() -> json([
+			"mensaje" => "Operación realizada con éxito"
+		], 200);
 	}
 }

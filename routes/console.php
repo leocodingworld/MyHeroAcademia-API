@@ -3,6 +3,7 @@
 use App\Models\Alumno;
 use App\Models\Curso;
 use App\Models\Expediente;
+use App\Models\LineaExpediente;
 use App\Models\Usuario;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
@@ -20,7 +21,7 @@ use Illuminate\Support\Str;
 */
 
 Artisan::command("test", function() {
-	// $modulo = Curso::where
+	new LineaExpediente();
 });
 
 

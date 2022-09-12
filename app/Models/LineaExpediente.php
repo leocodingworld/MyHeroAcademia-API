@@ -3,9 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use phpDocumentor\Reflection\PseudoTypes\True_;
 
-class LineasExpediente extends Model
+class LineaExpediente extends Model
 {
     protected $table = "lineasExpedientes";
 	protected $primaryKey = "linea";
@@ -13,13 +12,13 @@ class LineasExpediente extends Model
 	public $timestamps = false;
 
 	public function expediente() {
-		return $this -> belongsTo(Expediente::class, "expediente", "expediente");
+		return $this -> belongsTo(Expediente::class, "numExpediente", "numero");
 	}
 
 	protected $fillable = [
-		"expediente",
+		"numExpediente",
 		"linea",
-		"curso",
+		"idCurso",
 		"modulo",
 		"periodo",
 		"fecha",

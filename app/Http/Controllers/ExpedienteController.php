@@ -11,9 +11,17 @@ class ExpedienteController extends Controller
 		return Expediente::all(); // ???
 	}
 
-	public function getLineasExpediente($alumno, Request $request) {
+	public function getLineasExpediente($alumno, $modulo = null) {
 		$expediente = Expediente::where("alumno", $alumno) -> first();
 
-		return $expediente -> lineasExpediente-> where("modulo", $request -> modulo);
+		if(!$expediente) {
+			return response() -> json([
+				"mensaje" => "Alumno no encontrado"
+			], 404);
+		}
+
+		return $modulo
+			? $expediente -> lineas -> where("modulo", $modulo) -> first()
+			: $expediente -> lineas;
 	}
 }

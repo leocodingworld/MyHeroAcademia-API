@@ -77,7 +77,8 @@ class UsuarioController extends Controller
 		return Usuario::where("id", $usuario) -> first();
 	}
 
-	public function getAlumnos() {
+	public function getAlumnos() { // Añadir ciertos campos extras
+		return Usuario::where("nivel", 1) -> select(["id", "nombre", "apellidos"]) -> get();
 	}
 
 	public function getPersonal() {

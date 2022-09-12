@@ -29,14 +29,15 @@ Route::controller(AuthController::class) -> group(function() {
 
 Route::prefix("/usuarios") -> group(function() {
 	Route::controller(UsuarioController::class) -> group(function() {
-		Route::get("/datos/{usuario}", "getUsuarioData");
 		Route::get("/", "getUsuarios");
+		Route::get("/personal", "getPersonal");
+		Route::get("/datos/{usuario}", "getUsuarioData");
 		Route::get("/email/{email}", "checkEmail");
 		Route::get("/dni/{dni}", "checkDni");
 
 		Route::post("/nuevo", "createUsuario");
 
-		Route::put("/editar", "editarUsuario");
+		Route::put("/editar/{id}", "editarUsuario");
 		Route::put("/activar", "activarUsuario");
 		Route::put("/desactivar", "desactivarUsuario");
 	});
@@ -53,25 +54,33 @@ Route::prefix("/modulos") -> group(function() {
 	Route::controller(ModuloController::class) -> group(function() {
 		Route::get("/", "getModulos");
 		Route::get("/{profesor}", "getModulosPorProfesor");
-
+		Route::get("/alumnos/{modulo}", "getAlumnosPorModulo");
 	});
 });
 
 Route::prefix("/expedientes") -> group(function() {
 	Route::controller(ExpedienteController::class) -> group(function() {
 		Route::get("/alumno/{alumno}", "getLineasExpediente");
+		Route::get("/alumno/{alumno}/modulo/{modulo}", "getLineasExpediente");
+
+		Route::post("/linea/nueva", "nuevaLinea");
+
+		Route::put("/linea/{linea}", "editarLinea");
 	});
 });
 
 // Route::middleware("auth:sanctum") -> group(function() {
 // 	Route::prefix("/usuarios") -> group(function() {
 // 		Route::controller(UsuarioController::class) -> group(function() {
-// 			Route::get("/datos/{usuario}", "getUsuarioData");
 // 			Route::get("/", "getUsuarios");
+// 			Route::get("/personal", "getPersonal");
+// 			Route::get("/datos/{usuario}", "getUsuarioData");
+// 			Route::get("/email/{email}", "checkEmail");
+// 			Route::get("/dni/{dni}", "checkDni");
 
-// 			Route::post("/nuevo", "nuevoUsuario");
+// 			Route::post("/nuevo", "createUsuario");
 
-// 			Route::put("/editar", "editarUsuario");
+// 			Route::put("/editar/{id}", "editarUsuario");
 // 			Route::put("/activar", "activarUsuario");
 // 			Route::put("/desactivar", "desactivarUsuario");
 // 		});
@@ -88,6 +97,18 @@ Route::prefix("/expedientes") -> group(function() {
 // 		Route::controller(ModuloController::class) -> group(function() {
 // 			Route::get("/", "getModulos");
 // 			Route::get("/{profesor}", "getModulosPorProfesor");
+// 			Route::get("/alumnos/{modulo}", "getAlumnosPorModulo");
+// 		});
+// 	});
+
+// 	Route::prefix("/expedientes") -> group(function() {
+// 		Route::controller(ExpedienteController::class) -> group(function() {
+// 			Route::get("/alumno/{alumno}", "getLineasExpediente");
+// 			Route::get("/alumno/{alumno}/modulo/{modulo}", "getLineasExpediente");
+
+// 			Route::post("/linea/nueva", "nuevaLinea");
+
+// 			Route::put("/linea/{linea}", "editarLinea");
 // 		});
 // 	});
 // });

@@ -22,11 +22,11 @@ class DatabaseSeeder extends Seeder
 		$this -> command -> info("Inciando seeder...");
 
 		$this -> call([
-			UsuarioSeeder::class,
-			PersonalAlumnoSeeder::class,
-			CursoSeeder::class,
-			ModuloSeeder::class,
-			LineasExpedienteSeeder::class
+			// UsuarioSeeder::class,
+			// PersonalAlumnoSeeder::class,
+			// CursoSeeder::class,
+			// ModuloSeeder::class,
+			LineaExpedienteSeeder::class
 		]);
     }
 }
