@@ -35,7 +35,9 @@ class UsuarioController extends Controller
 			$this -> createPersonal($usuario);
 		}
 
-		return $usuario != null ? true : false;
+		return response() -> json([
+			"mensaje" => "Usuario creado con éxito"
+		]);
 	}
 
 	private function createAlumno(Usuario $usuario) {
@@ -74,7 +76,7 @@ class UsuarioController extends Controller
 	}
 
 	public function getUsuarioData($usuario) { // OK
-		return Usuario::where("id", $usuario) -> first();
+		return Usuario::find($usuario);
 	}
 
 	public function getAlumnos() { // Añadir ciertos campos extras
@@ -105,7 +107,9 @@ class UsuarioController extends Controller
 		$activar -> activo = true;
 		$activar -> save();
 
-		return true;
+		return response() -> json([
+
+		], 200);
 	}
 
 	public function desactivarUsuario(Request $request) {
