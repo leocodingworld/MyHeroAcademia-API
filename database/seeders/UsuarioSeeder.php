@@ -17,9 +17,7 @@ class UsuarioSeeder extends Seeder
     public function run()
     {
         $this -> command -> info("Creando Usuarios");
-		Usuario::factory(50) -> create();
 
-		$this -> command -> info("Añandiendo usuarios de pruebas");
 		Usuario::insert([
 			[
 				"dni" => "00000000A",
@@ -70,5 +68,7 @@ class UsuarioSeeder extends Seeder
 				"password" => bcrypt("123abc.")
 			],
 		]);
+
+		Usuario::factory(50) -> create();
     }
 }

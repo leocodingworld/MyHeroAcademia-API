@@ -46,6 +46,7 @@ Route::prefix("/usuarios") -> group(function() {
 Route::prefix("/alumnos") -> group(function() {
 	Route::controller(AlumnoController::class) -> group(function() {
 		Route::get("/", "getAlumnos");
+		Route::get("/alumno/{alumno}", );
 		Route::get("/modulo/{modulo}", "getAlumnosPorModulo");
 
 		Route::post("matricular/{curso}", "matricularAlumno");

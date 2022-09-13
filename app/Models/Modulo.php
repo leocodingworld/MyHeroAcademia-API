@@ -28,11 +28,14 @@ class Modulo extends Model
 	public function alumnos() {
 		return $this
 			-> belongsToMany(Modulo::class, "alumnomodulo", "modulo", "alumno")
-			->as("listado")
 			-> withPivot("alumno", "curso", "modulo");
 	}
 
 	public function profesor() {
 		return $this -> belongsTo(Personal::class, "tutor", "id");
+	}
+
+	public function lineas() {
+		return $this -> hasMany(LineaExpediente::class, "modulo", "id");
 	}
 }

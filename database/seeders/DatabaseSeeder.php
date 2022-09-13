@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
 			// CursoSeeder::class,
 			// ModuloSeeder::class,
 			AlumnoSeeder::class,
-			// LineaExpedienteSeeder::class
+			LineaExpedienteSeeder::class
 		]);
     }
 }
