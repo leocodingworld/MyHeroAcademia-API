@@ -2,12 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Alumno;
-use App\Models\Expediente;
-use App\Models\Usuario;
-use App\Models\Modulo;
-use App\Models\Curso;
-use App\Models\Personal;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -26,7 +20,8 @@ class DatabaseSeeder extends Seeder
 			// PersonalAlumnoSeeder::class,
 			// CursoSeeder::class,
 			// ModuloSeeder::class,
-			LineaExpedienteSeeder::class
+			AlumnoSeeder::class,
+			// LineaExpedienteSeeder::class
 		]);
     }
 }

@@ -21,7 +21,12 @@ use Illuminate\Support\Str;
 */
 
 Artisan::command("test", function() {
-	new LineaExpediente();
+	$cursos = Curso::all() -> take(4);
+	$cursos -> each(function($c) {
+		$c -> modulos -> each(function($m) {
+			$this -> info($m -> nombre);
+		});
+	});
 });
 
 

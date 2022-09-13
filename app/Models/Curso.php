@@ -15,7 +15,7 @@ class Curso extends Model
 	public $timestamps = false;
 
 	public function modulos() {
-		return $this -> hasMany(Modulo::class, "curso", "id");
+		return $this -> hasMany(Modulo::class, "idCurso", "id");
 	}
 
 	public function profesor() {
