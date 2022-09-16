@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
 			// PersonalAlumnoSeeder::class,
 			// CursoSeeder::class,
 			// ModuloSeeder::class,
-			AlumnoSeeder::class,
+			// AlumnoSeeder::class,
 			LineaExpedienteSeeder::class
 		]);
     }

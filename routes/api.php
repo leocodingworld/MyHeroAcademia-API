@@ -18,10 +18,6 @@ use App\Http\Controllers\ModuloController;
 |
 */
 
-Route::get("/test", function() {
-	return "OK";
-})-> middleware("auth:sanctum");
-
 Route::controller(AuthController::class) -> group(function() {
 	Route::post("/login", "login");
 	Route::post("/logout", "logout");

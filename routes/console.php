@@ -1,13 +1,11 @@
 <?php
 
-use App\Models\Alumno;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Foundation\Inspiring;
 use App\Models\Curso;
 use App\Models\Expediente;
 use App\Models\LineaExpediente;
-use App\Models\Usuario;
-use Illuminate\Foundation\Inspiring;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Str;
+use App\Models\Modulo;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,12 +19,60 @@ use Illuminate\Support\Str;
 */
 
 Artisan::command("test", function() {
-	$cursos = Curso::all() -> take(4);
-	$cursos -> each(function($c) {
-		$c -> modulos -> each(function($m) {
-			$this -> info($m -> nombre);
-		});
-	});
+	$expediente = Expediente::find(1);
+	$lineas = $expediente -> lineas;
+	$cursosPivot = $modulosPivot = $lineasPivot = collect([]);
+	$res = "";
+
+	$cursoId = $lineas
+		-> pluck("idCurso")
+		-> unique()
+		-> values();
+
+	$modulosId = $lineas
+		-> pluck("modulo")
+		-> unique()
+		-> values();
+
+	$cursos = Curso::select("id", "nombre", "nombreCorto")
+		-> find($cursoId);
+	$modulos = Modulo::select("id", "nombre", "nombreCorto")
+		-> find($modulosId);
+
+	// $this -> info($modulos -> toJson(JSON_PRETTY_PRINT));
+
+	foreach($cursos as $c) {
+		foreach($modulos as $m) {
+			foreach($lineas -> where("modulo", $m -> id) as $l) {
+				$lineasPivot = $lineasPivot
+					-> merge([
+						"linea" => $l -> linea,
+						"fecha" => $l -> fecha,
+						"periodo" => $l -> perido,
+						"calificacion" => $l -> calificacion,
+						"observaciones" => $l -> observaciones
+					]);
+			}
+
+			$modulosPivot = $modulosPivot -> merge([
+				"id" => $m ->id,
+				"nombre" => $m -> nombre,
+				"nombreCorto" => $m -> nombreCorto,
+				"lineas" => $lineasPivot
+			]);
+		}
+
+		$cursosPivot = $cursosPivot -> merge([
+			"id" => $m ->id,
+			"nombre" => $m -> nombre,
+			"nombreCorto" => $m -> nombreCorto,
+			"modulos" => $modulosPivot
+		]);
+	}
+
+
+
+	$this -> info($cursosPivot -> toJson(JSON_PRETTY_PRINT));
 });
 
 

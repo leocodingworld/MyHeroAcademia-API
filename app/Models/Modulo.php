@@ -34,8 +34,4 @@ class Modulo extends Model
 	public function profesor() {
 		return $this -> belongsTo(Personal::class, "tutor", "id");
 	}
-
-	public function lineas() {
-		return $this -> hasMany(LineaExpediente::class, "modulo", "id");
-	}
 }
