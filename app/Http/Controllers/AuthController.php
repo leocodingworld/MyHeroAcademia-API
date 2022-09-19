@@ -16,9 +16,9 @@ class AuthController extends Controller
 		]);
 
 		if (!Auth::attempt($attr)) {
-			return response() -> json(
-				["mensaje" => "El email o la contraseña incorrectos"],
-			401);
+			return response() -> json([
+				"mensaje" => "El email o la contraseña incorrectos"
+			], 401);
 		}
 
 		$usuario = Usuario::where("email", $request -> email)

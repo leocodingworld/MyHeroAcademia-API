@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Laravel\Sanctum\HasApiTokens;
 
 class Usuario extends Authenticatable
@@ -16,28 +16,19 @@ class Usuario extends Authenticatable
 	public $timestamps = false;
 
 	protected $fillable = [
-		"dni",
+		"id",
 		"nombre",
-		"apellidos",
-		"sexo",
-		"direccion",
-		"municipio",
-		"localidad",
-		"provincia",
-		"codigoPostal",
-		"telefono",
-		"fechaNacimiento",
 		"email",
-		"nivel"
+		"nivel",
+		"password",
+		"activo"
 	];
 
-	protected $hidden = [ "password" ];
+	protected $hidden = [
+		"password"
+	];
 
-	public function alumno() {
-		return $this -> hasOne(Alumno::class, "id", "id");
-	}
-
-	public function personal() {
-		return $this -> hasOne(Personal::class, "id", "id");
+	public function datos() {
+		return $this -> belongsTo(DatosUsuario::class, "id", "id");
 	}
 }

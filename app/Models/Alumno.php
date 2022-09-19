@@ -13,20 +13,14 @@ class Alumno extends Model
 
 	protected $filliable = [
 		"id",
-		"fechaMatricula"
+		"fechaMatricula" // ???
 	];
 
 	public function info() {
-		return $this -> belongsTo(Usuario::class, "id", "id");
+		return $this -> belongsTo(DatosUsuario::class, "id", "id");
 	}
 
 	public function expediente() {
 		return $this -> hasOne(Expediente::class, "expediente", "id");
 	}
-
-	 public function modulos() {
-		return $this
-			-> belongsToMany(Modulo::class, "alumnomodulo", "modulo", "alumno")
-			-> withPivot("alumno", "curso", "modulo");
-	 }
 }

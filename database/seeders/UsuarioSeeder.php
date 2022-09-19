@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\DatosUsuario;
 use App\Models\Usuario;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-
 
 class UsuarioSeeder extends Seeder
 {
@@ -18,7 +19,9 @@ class UsuarioSeeder extends Seeder
     {
         $this -> command -> info("Creando Usuarios");
 
-		Usuario::insert([
+		$faker = \Faker\Factory::create();
+
+		DatosUsuario::insert([
 			[
 				"dni" => "00000000A",
 				"nombre" => "Alumno",
@@ -31,9 +34,6 @@ class UsuarioSeeder extends Seeder
 				"codigoPostal" => "69069",
 				"telefono" => "123 456 789",
 				"fechaNacimiento" => "2000-01-01",
-				"email" => "alumno@myheroac.es",
-				"nivel" => 1,
-				"password" => bcrypt("123abc.")
 			],
 			[
 				"dni" => "00000001B",
@@ -46,10 +46,7 @@ class UsuarioSeeder extends Seeder
 				"provincia" => "Comunidad",
 				"codigoPostal" => "69069",
 				"telefono" => "123 456 789",
-				"fechaNacimiento" => "1960-01-01",
-				"email" => "profesor@myheroac.es",
-				"nivel" => 2,
-				"password" => bcrypt("123abc.")
+				"fechaNacimiento" => "1960-01-01"
 			],
 			[
 				"dni" => "00000002C",
@@ -62,13 +59,21 @@ class UsuarioSeeder extends Seeder
 				"provincia" => "Comunidad",
 				"codigoPostal" => "69069",
 				"telefono" => "123 456 789",
-				"fechaNacimiento" => "1970-01-01",
-				"email" => "directivo@myheroac.es",
-				"nivel" => 3,
-				"password" => bcrypt("123abc.")
+				"fechaNacimiento" => "1970-01-01"
 			],
 		]);
 
-		Usuario::factory(50) -> create();
+		$alumno = DatosUsuario::find(1);
+		$profe =  DatosUsuario::find(2);
+		$directivo =  DatosUsuario::find(3);
+
+		Usuario::create([
+			[
+				"id" => $alumno -> id,
+				"nombre" => Str::limit($alumno -> nombre, 1, "")
+			],
+		]);
+
+		DatosUsuario::factory(50) -> create();
     }
 }
