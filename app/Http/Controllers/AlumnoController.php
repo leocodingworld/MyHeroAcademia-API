@@ -18,7 +18,6 @@ class AlumnoController extends Controller
 	public function matriculacion(Request $request) {
 		$usuario = Usuario::find($request -> id);
 
-
 	}
 
 	public function editarAlumno($alumno, Request $request) {

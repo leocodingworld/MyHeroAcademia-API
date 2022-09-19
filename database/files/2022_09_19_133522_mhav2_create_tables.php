@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-		Schema::create("usuarios", function(Blueprint $table) {
+        Schema::create("datosUsuarios", function(Blueprint $table) {
 			$table -> unsignedInteger("id", true);
 
 			$table -> string("dni", 9) -> unique("dniUnique");
@@ -27,10 +27,22 @@ return new class extends Migration
 			$table -> string("codigoPostal", 5);
 			$table -> string("telefono", 20);
 			$table -> date("fechaNacimiento");
+		});
+
+		Schema::create("usuarios", function(Blueprint $table) {
+			$table -> unsignedInteger("id", true);
+
+			$table -> string("nombre") -> unique("nombreUnique");
 			$table -> string("email") -> unique("emailUnique");
 			$table -> string("nivel", 1);
 			$table -> binary("password");
+			$table -> rememberToken();
 			$table -> boolean("activo") -> default(true);
+
+			$table
+				-> foreign("id")
+				-> references("id")
+				-> on("datosUsuarios");
 		});
 
 		Schema::create("personal", function(Blueprint $table) {
@@ -49,7 +61,7 @@ return new class extends Migration
 			$table -> unsignedInteger("id");
 
 			$table -> boolean("matriculado") -> default(true);
-			$table -> string("anho", 9) -> nullable();
+			$table -> date("anho") -> nullable();
 
 			$table
 				-> foreign("id")
@@ -182,15 +194,6 @@ return new class extends Migration
      */
     public function down()
     {
-		Schema::dropIfExists("lineasExpedientes");
-		Schema::dropIfExists("expedientes");
-		Schema::dropIfExists("notas");
-		Schema::dropIfExists("listados");
-		Schema::dropIfExists("modulos");
-		Schema::dropIfExists("cursos");
-		Schema::dropIfExists("alumnos");
-		Schema::dropIfExists("personal");
-		Schema::dropIfExists("usuarios");
-		// Schema::dropIfExists("datosUsuarios");
+        //
     }
 };

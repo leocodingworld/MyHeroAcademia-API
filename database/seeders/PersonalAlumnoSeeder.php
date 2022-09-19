@@ -27,7 +27,7 @@ class PersonalAlumnoSeeder extends Seeder
 		$alumnos -> each(function($alumno){
 			Alumno::insert([
 				"id" => $alumno -> id,
-				"fechaMatricula" => date("Y-m-d")
+				"anho" => "2022/2023"
 			]);
 
 			Expediente::insert([

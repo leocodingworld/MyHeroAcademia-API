@@ -18,10 +18,10 @@ class LineaExpediente extends Model
 	protected $fillable = [
 		"numExpediente",
 		"linea",
+		"anho",
 		"idCurso",
 		"modulo",
-		"periodo",
-		"fecha",
+		"convocatoria",
 		"calificacion",
 		"observaciones"
 	];

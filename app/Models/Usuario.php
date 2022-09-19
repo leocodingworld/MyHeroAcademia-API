@@ -17,7 +17,17 @@ class Usuario extends Authenticatable
 
 	protected $fillable = [
 		"id",
+		"dni",
 		"nombre",
+		"apellidos",
+		"sexo",
+		"direccion",
+		"municipio",
+		"localidad",
+		"provincia",
+		"codigoPostal",
+		"telefono",
+		"fechaNacimiento",
 		"email",
 		"nivel",
 		"password",
@@ -27,8 +37,4 @@ class Usuario extends Authenticatable
 	protected $hidden = [
 		"password"
 	];
-
-	public function datos() {
-		return $this -> belongsTo(DatosUsuario::class, "id", "id");
-	}
 }

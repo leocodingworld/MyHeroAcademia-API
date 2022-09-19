@@ -23,4 +23,8 @@ class Alumno extends Model
 	public function expediente() {
 		return $this -> hasOne(Expediente::class, "expediente", "id");
 	}
+
+	public function notas() {
+		return $this -> hasMany(Nota::class, "alumno", "id");
+	}
 }
