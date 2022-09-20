@@ -27,7 +27,7 @@ class AuthController extends Controller
 
 		if(!$usuario -> activo) {
 			return response() -> json([
-				"mensaje" =>"La cuenta está desactivada.\nContacte con el centro para obtener ayuda"
+				"mensaje" =>"La cuenta está desactivada.\nContacte con el centro para obtener ayuda."
 			], 403);
 		}
 
@@ -42,15 +42,19 @@ class AuthController extends Controller
 	}
 
 	public function logout(Request $request) {
-		$tokenId = Str::limit($request -> bearerToken(), 1, "");
-
 		$usuario = Usuario::find($request -> id);
+
+		if(!$usuario -> tokens) {
+			return response() -> json([], 404);
+		}
+
+		$tokenId = Str::limit($request -> bearerToken(), 1, "");
 		$usuario
 			-> tokens
 			-> where("id", $tokenId)
 			-> first
 			-> delete();
 
-		return "OK?";
+		return response() -> json();
 	}
 }

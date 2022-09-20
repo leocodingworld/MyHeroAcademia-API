@@ -11,8 +11,8 @@ class AlumnoController extends Controller
 {
 	public function getAlumnos() {
 		return Usuario::where("nivel", 1)
-		-> select("id", "nombre", "apellidos")
-		-> get();
+			-> select("id", "nombre", "apellidos")
+			-> get();
 	}
 
 	public function matriculacion(Request $request) {
@@ -20,7 +20,7 @@ class AlumnoController extends Controller
 
 	}
 
-	public function editarAlumno($alumno, Request $request) {
+	public function editarMatricula($alumno, Request $request) {
 
 	}
 }
