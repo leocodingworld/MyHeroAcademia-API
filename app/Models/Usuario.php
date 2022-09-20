@@ -37,4 +37,12 @@ class Usuario extends Authenticatable
 	protected $hidden = [
 		"password"
 	];
+
+	public function alumno() {
+		return $this -> hasOne(Alumno::class, "id", "id");
+	}
+
+	public function personal() {
+		return $this -> hasOne(Personal::class, "id", "id");
+	}
 }

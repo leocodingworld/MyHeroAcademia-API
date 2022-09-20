@@ -21,5 +21,11 @@ class Nota extends Model
 		"observaciones"
 	];
 
+	public function cursoInfo() {
+		return $this -> belongsTo(Curso::class, "curso", "id");
+	}
 
+	public function moduloInfo() {
+		return $this -> belongsTo(Modulo::class, "modulo", "id");
+	}
 }

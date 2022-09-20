@@ -13,7 +13,8 @@ class Alumno extends Model
 
 	protected $filliable = [
 		"id",
-		"fechaMatricula" // ???
+		"matriculado", // ???
+		"anho"
 	];
 
 	public function info() {

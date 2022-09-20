@@ -2,13 +2,10 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Database\Seeder;
 use App\Models\Alumno;
-use App\Models\Usuario;
-use App\Models\Curso;
 use App\Models\Listado;
 use App\Models\Modulo;
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class AlumnoSeeder extends Seeder
 {

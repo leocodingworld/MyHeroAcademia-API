@@ -11,18 +11,17 @@ class LineaExpediente extends Model
 	public $incrementing = true;
 	public $timestamps = false;
 
-	public function expediente() {
-		return $this -> belongsTo(Expediente::class, "numExpediente", "numero");
-	}
-
 	protected $fillable = [
 		"numExpediente",
 		"linea",
-		"anho",
 		"idCurso",
 		"modulo",
 		"convocatoria",
 		"calificacion",
 		"observaciones"
 	];
+
+	public function expediente() {
+		return $this -> belongsTo(Expediente::class, "numExpediente", "numero");
+	}
 }

@@ -118,7 +118,6 @@ return new class extends Migration
 			$table -> unsignedInteger("referencia", true);
 
 			$table -> unsignedInteger("alumno");
-			$table -> string("anho", 9);
 			$table -> unsignedInteger("curso");
 			$table -> unsignedInteger("modulo");
 			$table -> string("periodo");
