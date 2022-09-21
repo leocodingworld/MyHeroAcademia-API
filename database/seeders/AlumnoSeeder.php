@@ -17,7 +17,7 @@ class AlumnoSeeder extends Seeder
     public function run()
     {
 		$alumnos = Alumno::all(["id"]);
-		$modulos = Modulo::whereIn("idCurso", [1, 2]) -> select("id", "idCurso") -> get();
+		$modulos = Modulo::whereIn("idCurso", 1) -> select("id", "idCurso") -> get();
 
 		$alumnos -> each(function($a) use ($modulos) {
 			$modulos -> each(function($m) use ($a) {

@@ -15,6 +15,20 @@ class AlumnoController extends Controller
 			-> get();
 	}
 
+	public function getAlumno($id) {
+		[
+			"id" => $id,
+			"nombre" => $nombre,
+			"apellidos" => $apellidos
+		] = Usuario::find($id);
+
+		return [
+			"id" => $id,
+			"nombre" => $nombre,
+			"apellidos" => $apellidos
+		];
+	}
+
 	public function matriculacion(Request $request) {
 		$usuario = Usuario::find($request -> id);
 

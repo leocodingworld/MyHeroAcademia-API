@@ -6,6 +6,7 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\ExpedienteController;
 use App\Http\Controllers\ModuloController;
+use App\Http\Controllers\NotaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +43,7 @@ Route::prefix("/usuarios") -> group(function() {
 Route::prefix("/alumnos") -> group(function() {
 	Route::controller(AlumnoController::class) -> group(function() {
 		Route::get("/", "getAlumnos");
-		Route::get("/alumno/{alumno}", );
+		Route::get("/{alumno}", "getAlumno");
 		Route::get("/modulo/{modulo}", "getAlumnosPorModulo");
 
 		Route::post("matricular/{curso}", "matricularAlumno");
@@ -54,6 +55,12 @@ Route::prefix("/modulos") -> group(function() {
 		Route::get("/", "getModulos");
 		Route::get("/{profesor}", "getModulosPorProfesor");
 		Route::get("/alumnos/{modulo}", "getAlumnosPorModulo");
+	});
+});
+
+Route::prefix("/notas") -> group(function() {
+	Route::controller(NotaController::class) -> group(function() {
+		Route::get("/alumno/{alumno}", "getNotasPorAlumno");
 	});
 });
 
