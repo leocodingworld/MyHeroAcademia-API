@@ -6,6 +6,7 @@ use App\Models\Usuario;
 use App\Models\Curso;
 use App\Models\LineaExpediente;
 use App\Models\Modulo;
+use Illuminate\Support\Collection;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,26 +20,39 @@ use App\Models\Modulo;
 */
 
 Artisan::command("test", function() {
+	// saco las notas del alumno
 	$na = Usuario::find(1) -> alumno -> notas;
 
+	// Me quedo solo con el campo del curso y los valores únicos
 	$cursosIds = $na -> unique("curso") -> values() -> pluck("curso");
+
+	// si salen más de un registro, me quedo normal.
+	// Si solo hay uno solo me quedo con uno, recupero el valor
+	$cursosIds = $cursosIds -> count() == 1
+		? $cursosIds -> first()
+		: $cursosIds;
+
 	$curso = Curso::find($cursosIds);
 
-	$this -> info(json_encode($curso, JSON_PRETTY_PRINT));
+	$modulos = $curso -> modulos;
 
+	$notas = $modulos -> map(function($m) use ($na) {
+		return new Collection([
+			"modulo" => $m -> nombre,
+			"notas" => $na -> where("modulo", $m -> id) -> makeHidden(["alumno", "curso", "modulo"]) -> flatten()
+		]);
+	});
 
-	// $notas = $na -> map(function($n) {
-	// 	return collect([
-	// 		"referencia" => $n -> referencia,
-	// 		"periodo" => $n -> periodo,
-	// 		"calificacion" => $n -> calificacion,
-	// 		"observaciones" => $n -> observaciones,
-	// 	]);
-	// });
+	$this -> info(json_encode($notas, JSON_PRETTY_PRINT));
 
 	// $cnotas = [
 	// 	"curso" => "{$curso -> nivel} {$curso -> nombre}",
 	// 	"notas" => $notas
+	// ];
+
+	// $fnotas = [
+	// 	"curso" => "{$curso -> nivel} {$curso -> nombre}",
+	// 	"modulos" => []
 	// ];
 
 	// $this -> info(json_encode($cnotas,JSON_PRETTY_PRINT));
