@@ -67,11 +67,11 @@ Route::prefix("/notas") -> group(function() {
 Route::prefix("/expedientes") -> group(function() {
 	Route::controller(ExpedienteController::class) -> group(function() {
 		Route::get("/alumno/{alumno}", "getLineasExpediente");
-		Route::get("/alumno/{alumno}/modulo/{modulo}", "getLineasExpediente");
+		// Route::get("/alumno/{alumno}/modulo/{modulo}", "getLineasExpediente");
 
 		Route::post("/linea/nueva", "nuevaLinea");
 
-		Route::put("/linea/{linea}", "editarLinea");
+		// Route::put("/linea/{linea}", "editarLinea");
 	});
 });
 

@@ -16,12 +16,13 @@ class DatabaseSeeder extends Seeder
 		$this -> command -> info("Inciando seeder...");
 
 		$this -> call([
-			UsuarioSeeder::class,
-			PersonalAlumnoSeeder::class,
-			CursoSeeder::class,
-			ModuloSeeder::class,
-			AlumnoSeeder::class,
-			NotaSeeder::class,
+			// UsuarioSeeder::class,
+			// PersonalAlumnoSeeder::class,
+			// CursoSeeder::class,
+			// ModuloSeeder::class,
+			// AlumnoSeeder::class,
+			// NotaSeeder::class,
+			LineaExpedienteSeeder::class
 		]);
     }
 }
