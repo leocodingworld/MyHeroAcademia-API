@@ -15,10 +15,16 @@ class LineaExpediente extends Model
 		"numExpediente",
 		"linea",
 		"idCurso",
-		"modulo",
+		"idModulo",
 		"convocatoria",
 		"calificacion",
 		"observaciones"
+	];
+
+	protected $hidden = [
+		// "numExpediente", ??
+		"idCurso",
+		"idModulo",
 	];
 
 	public function expediente() {

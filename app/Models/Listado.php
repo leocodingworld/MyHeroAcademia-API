@@ -15,7 +15,6 @@ class Listado extends Model
 		"idModulo",
 		"idAlumno",
 		"idCurso",
-		"anho"
 	];
 
 	public function modulo() {

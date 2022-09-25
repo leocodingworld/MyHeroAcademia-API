@@ -60,7 +60,8 @@ Route::prefix("/modulos") -> group(function() {
 
 Route::prefix("/notas") -> group(function() {
 	Route::controller(NotaController::class) -> group(function() {
-		Route::get("/alumno/{alumno}", "getNotasPorAlumno");
+		Route::get("/alumno/{alumno}/", "getNotas");
+		Route::get("/alumno/{alumno}/modulo/{modulo}", "getNotas");
 	});
 });
 

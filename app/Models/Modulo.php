@@ -21,14 +21,16 @@ class Modulo extends Model
 		"horas",
 	];
 
+	protected $hidden = [
+		"horas"
+	];
+
 	public function curso() {
 		return $this -> belongsTo(Curso::class, "idCurso", "id");
 	}
 
 	public function alumnos() {
-		return $this
-			-> belongsToMany(Modulo::class, "alumnomodulo", "modulo", "alumno")
-			-> withPivot("alumno", "curso", "modulo");
+		return $this -> hasMany(Listado::class, "idModulo", "id");
 	}
 
 	public function profesor() {

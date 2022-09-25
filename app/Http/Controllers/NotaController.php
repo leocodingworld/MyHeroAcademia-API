@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Curso;
+use App\Models\Modulo;
 use App\Models\Nota;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
@@ -10,39 +11,57 @@ use Illuminate\Support\Collection;
 
 class NotaController extends Controller
 {
-	public function getNotasPorAlumno($alumno) {
-		// saco las notas del alumno
-		$na = Usuario::find($alumno) -> alumno -> notas;
+	public function getNotas(string | int $alumno, string | int $modulo = null) {
+		return $modulo
+			? $this -> getNotasAlumnoPorModulo($alumno, $modulo)
+			: $this -> getNotasAlumno($alumno);
+	}
 
-		// Me quedo solo con el campo del curso y los valores únicos
-		$cursosIds = $na -> unique("curso") -> values() -> pluck("curso");
+	private function getNotasAlumno(string | int $alumno) {
+		$na = Nota::where("alumno", $alumno) -> get();
 
-		// si salen más de un registro, me quedo normal.
-		// Si solo hay uno solo me quedo con uno, recupero el valor
-		$cursosIds = $cursosIds -> count() == 1
-			? $cursosIds -> first()
-			: $cursosIds;
+		$notas = $na -> groupBy("curso") -> map(function($notas, $curso) {
+			$modulos = $notas -> groupBy("modulo") ->map(function($notas, $modulo) {
+				return new Collection([
+					"modulo" => Modulo::find($modulo) -> nombre,
+					"nota" => $notas -> makeHidden(["alumno", "anho", "curso", "modulo"])
+				]);
+			}) -> values();
 
-		$curso = Curso::find($cursosIds);
+			$c = Curso::find($curso);
 
-		$modulos = $curso -> modulos;
-
-		$notas = $modulos -> map(function($m) use ($na) {
 			return new Collection([
-				"modulo" => $m -> nombre,
-				"notas" => $na -> where("modulo", $m -> id) -> makeHidden(["alumno", "curso", "modulo"]) -> flatten()
+				"curso" => "{$c -> nivel} {$c -> nombre}",
+				"modulos" => $modulos
 			]);
-		});
+		}) -> values();
 
-		return response() -> json([
-			"curso" => "{$curso -> nivel} {$curso -> nombre}",
-			"modulos" => $notas
-		]);
+		return $notas;
+	}
+
+	private function getNotasAlumnoPorModulo(string | int $alumno, string | int $modulo) {
+		return Nota::where([
+			[ "alumno", $alumno ],
+			[ "modulo", $modulo ]
+		])
+		-> select("referencia", "calificacion", "observaciones", "periodo")
+		-> get();
 	}
 
 	public function nuevaNota(Request $request) {
 		$nota = new Nota();
 
+		$nota -> alumno = $request -> alumno;
+		$nota -> curso = $request -> curso;
+		$nota -> modulo = $request -> modulo;
+		$nota -> periodo = $request -> periodo;
+		$nota -> calificacion = $request -> calificacion;
+		$nota -> observaciones = $request -> observaciones ?? null;
 
+		$nota -> saveOrFail();
+
+		return response() -> json([
+			"mensaje" => "Nota registrada con éxito"
+		]);
 	}
 }

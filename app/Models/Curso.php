@@ -14,6 +14,13 @@ class Curso extends Model
 	public $incrementing = true;
 	public $timestamps = false;
 
+	protected $fillable = [
+		"nombre",
+		"nombreCorto",
+		"tipo",
+		"tutor"
+	];
+
 	public function modulos() {
 		return $this -> hasMany(Modulo::class, "idCurso", "id");
 	}
@@ -21,11 +28,4 @@ class Curso extends Model
 	public function profesor() {
 		return $this -> belongsTo(Personal::class, "id", "tutor");
 	}
-
-	protected $fillable = [
-		"nombre",
-		"nombreCorto",
-		"tipo",
-		"tutor"
-	];
 }

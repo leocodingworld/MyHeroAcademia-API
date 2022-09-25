@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Expediente;
 use App\Models\LineaExpediente;
 use App\Models\Curso;
+use App\Models\Modulo;
 use App\Models\Nota;
 use Faker\Factory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -21,33 +22,28 @@ class LineaExpedienteSeeder extends Seeder
 	{
 		$con = ["Ordinaria", "Extraordinaria"];
 		$exps = Expediente::all();
-		$notas = Nota::all();
-		$mids = $notas -> unique("modulo") -> values() -> pluck("modulo");
-		$cids = $notas -> unique("curso") -> values() -> pluck("curso");
 
 		foreach($exps as $e) {
 			$i = 1;
+			$notasAlumno = Nota::where("alumno", $e -> alumno) -> get();
+			$notasAlumnosCurso = $notasAlumno -> groupBy("modulo") -> map(function($notas, $modulo) {
+				return new \Illuminate\Support\Collection([
+					"modulo" => $modulo,
+					"media" => $notas -> avg("calificacion")
+				]);
+			});
 
-			foreach($cids as $c) {
+			foreach($notasAlumnosCurso as ["modulo" => $modulo, "media" => $media]) {
+				$e -> lineas() -> create([
+					"linea" => $i,
+					"anho" => "2022/2023",
+					"calificacion" => $media,
+					"idCurso" => Modulo::find($modulo) -> idCurso,
+					"idModulo" => $modulo,
+					"convocatoria" => $con[rand(0, 1)]
+				]);
 
-				foreach($mids as $m) {
-					$linea = LineaExpediente::create([
-						"numExpediente" => $e -> numero,
-						"anho" => "2022/2023",
-						"linea" => $i,
-						"idCurso" => $c,
-						"idModulo" => $m,
-						"convocatoria" => $con[rand(0,1)],
-						"calificacion" => $notas
-							-> where("alumno", $e -> alumno)
-							-> where("modulo", $m)
-							-> avg("calificacion"),
-					]);
-
-					$this -> command -> info(json_encode($linea, JSON_PRETTY_PRINT));
-
-					$i++;
-				}
+				$i++;
 			}
 		}
 	}

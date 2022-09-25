@@ -11,38 +11,29 @@ use Illuminate\Support\Collection;
 
 class ExpedienteController extends Controller
 {
-
-	/**
-	 * @param int $alumno
-	 *
-	 */
 	public function getLineasExpediente($alumno) {
-		$ls = Expediente::firstWhere("alumno", $alumno) -> lineas;
-		$anhos = $ls -> unique("anho") -> values() -> pluck("anhos");
+		$l = Expediente::find($alumno) -> lineas;
 
-		$cursosId = $ls -> unique("idCurso") -> values() -> pluck("idCurso");
-		$cursos = Curso::find($cursosId);
-		$cursos = $cursos -> count() == 1
-			? $cursos -> first()
-			: $cursos;
+		$lineas = $l -> groupBy("anho") -> map(function($lanho, $anho) {
+			$cursos = $lanho -> groupBy("idCurso") -> map(function($lmodulo, $curso) {
+				$modulos = $lmodulo -> groupBy("idModulo") -> map(function($lineas, $modulo) {
+					return new Collection([
+						"modulo" => Modulo::find($modulo) -> nombre,
+						"lineas" => $lineas -> makeHidden("idCurso", "idModulo", "numExpediente")
+					]);
+				}) -> values();
 
-		$modulosId = $ls -> unique("idModulo") -> values() -> pluck("idModulo");
-		$modulos = Modulo::find($modulosId);
+				return new Collection([
+					"curso" => Curso::find($curso) -> nombre,
+					"modulos" => $modulos
+				]);
+			}) -> values();
 
-		$lineas = $ls -> map(function($l) use($modulos) {
-			$m = $modulos -> firstWhere("id", $l -> idModulo) -> nombre;
-
-			$lineas = new Collection([
-				"nombre" => $m,
-				"calificacion" => $l -> calificacion,
-				"convocatoria" => $l -> convocatoria,
-				"observaciones" => $l -> observaciones
+			return new Collection([
+				"anho" => $anho,
+				"cursos" => $cursos
 			]);
-
-			return $lineas;
-		});
-
-
+		})  -> values();
 
 		return $lineas;
 	}

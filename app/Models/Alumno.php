@@ -18,7 +18,7 @@ class Alumno extends Model
 	];
 
 	public function info() {
-		return $this -> belongsTo(DatosUsuario::class, "id", "id");
+		return $this -> belongsTo(Usuario::class, "id", "id");
 	}
 
 	public function expediente() {

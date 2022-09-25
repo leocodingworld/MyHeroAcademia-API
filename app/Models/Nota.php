@@ -12,20 +12,25 @@ class Nota extends Model
 	public $timestamps = false;
 
 	protected $fillable = [
-		"alumno",
+		"idAlumno",
 		"ahno",
-		"curso",
-		"modulo",
+		"idCurso",
+		"idModulo",
 		"periodo",
 		"calificacion",
 		"observaciones"
 	];
 
-	public function cursoInfo() {
-		return $this -> belongsTo(Curso::class, "curso", "id");
+	protected $hidden = [
+		"idCurso",
+		"idModulo",
+	];
+
+	public function curso() {
+		return $this -> belongsTo(Curso::class, "idCurso", "id");
 	}
 
-	public function moduloInfo() {
-		return $this -> belongsTo(Modulo::class, "modulo", "id");
+	public function modulo() {
+		return $this -> belongsTo(Modulo::class, "idModulo", "id");
 	}
 }

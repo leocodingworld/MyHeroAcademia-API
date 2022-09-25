@@ -86,12 +86,12 @@ return new class extends Migration
 			$table -> primary(["id", "idCurso"], "pk_modulo_curso");
 
 			$table
-				-> foreign("idCurso")
+				-> foreign("idCurso", "fk_ModuloCurso")
 				-> references("id")
 				-> on("cursos");
 
 			$table
-				-> foreign("tutor")
+				-> foreign("tutor", "fk_PersonalProfesor")
 				-> references("id")
 				-> on("personal");
 		});
@@ -104,12 +104,12 @@ return new class extends Migration
 			$table -> primary(["idCurso", "idModulo", "idAlumno"]);
 
 			$table
-				-> foreign(["idCurso", "idModulo"])
+				-> foreign(["idCurso", "idModulo"], "fk_ListadosModuloCurso")
 				-> references(["idCurso", "id"])
 				-> on("modulos");
 
 			$table
-				-> foreign("idAlumno")
+				-> foreign("idAlumno", "fk_ListadosAlumno")
 				-> references("id")
 				-> on("alumnos");
 		});
@@ -117,35 +117,35 @@ return new class extends Migration
 		Schema::create("notas", function(Blueprint $table) {
 			$table -> unsignedInteger("referencia", true);
 
-			$table -> unsignedInteger("alumno");
-			$table -> unsignedInteger("curso");
-			$table -> unsignedInteger("modulo");
+			$table -> unsignedInteger("idAlumno");
+			$table -> unsignedInteger("idCurso");
+			$table -> unsignedInteger("idModulo");
 			$table -> string("periodo");
 			$table -> unsignedTinyInteger("calificacion");
 			$table -> text("observaciones") -> nullable();
 
 			$table
-				-> foreign("alumno", "fk_alumno")
+				-> foreign("idAlumno", "fk_alumno")
 				-> references("id")
 				-> on("alumnos");
 
 			$table
-				-> foreign("curso", "fk_curso")
+				-> foreign("idCurso", "fk_curso")
 				-> references("id")
 				-> on("cursos");
 
 			$table
-				-> foreign("modulo", "fk_modulo")
+				-> foreign("idModulo", "fk_modulo")
 				-> references("id")
 				-> on("modulos");
 		});
 
 		Schema::create("expedientes", function(Blueprint $table) {
 			$table -> unsignedInteger("numero", true);
-			$table -> unsignedInteger("alumno");
+			$table -> unsignedInteger("idAlumno");
 
 			$table
-				-> foreign("alumno")
+				-> foreign("idAlumno", "fk_alumno")
 				-> references("id")
 				-> on("alumnos");
 		});
@@ -163,12 +163,12 @@ return new class extends Migration
 			$table -> primary(["numExpediente", "linea"]);
 
 			$table
-				-> foreign("numExpediente")
+				-> foreign("numExpediente", "fk_expediente")
 				-> references("numero")
 				-> on("expedientes");
 
 			$table
-				-> foreign(["idCurso", "idModulo"])
+				-> foreign(["idCurso", "idModulo"], "fk_moduloCurso")
 				-> references(["idCurso", "id"])
 				-> on("modulos");
 		});
@@ -190,6 +190,5 @@ return new class extends Migration
 		Schema::dropIfExists("alumnos");
 		Schema::dropIfExists("personal");
 		Schema::dropIfExists("usuarios");
-		// Schema::dropIfExists("datosUsuarios");
     }
 };
