@@ -18,13 +18,13 @@ class NotaController extends Controller
 	}
 
 	private function getNotasAlumno(string | int $alumno) {
-		$na = Nota::where("alumno", $alumno) -> get();
+		$na = Nota::where("idAlumno", $alumno) -> get();
 
-		$notas = $na -> groupBy("curso") -> map(function($notas, $curso) {
-			$modulos = $notas -> groupBy("modulo") ->map(function($notas, $modulo) {
+		$notas = $na -> groupBy("idCurso") -> map(function($notas, $curso) {
+			$modulos = $notas -> groupBy("idModulo") ->map(function($notas, $modulo) {
 				return new Collection([
 					"modulo" => Modulo::find($modulo) -> nombre,
-					"nota" => $notas -> makeHidden(["alumno", "anho", "curso", "modulo"])
+					"nota" => $notas
 				]);
 			}) -> values();
 
@@ -41,19 +41,18 @@ class NotaController extends Controller
 
 	private function getNotasAlumnoPorModulo(string | int $alumno, string | int $modulo) {
 		return Nota::where([
-			[ "alumno", $alumno ],
-			[ "modulo", $modulo ]
+			[ "idAlumno", $alumno ],
+			[ "idModulo", $modulo ]
 		])
-		-> select("referencia", "calificacion", "observaciones", "periodo")
 		-> get();
 	}
 
 	public function nuevaNota(Request $request) {
 		$nota = new Nota();
 
-		$nota -> alumno = $request -> alumno;
-		$nota -> curso = $request -> curso;
-		$nota -> modulo = $request -> modulo;
+		$nota -> idAlumno = $request -> alumno;
+		$nota -> idCurso = $request -> curso;
+		$nota -> idModulo = $request -> modulo;
 		$nota -> periodo = $request -> periodo;
 		$nota -> calificacion = $request -> calificacion;
 		$nota -> observaciones = $request -> observaciones ?? null;

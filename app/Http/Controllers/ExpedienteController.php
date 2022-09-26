@@ -12,14 +12,19 @@ use Illuminate\Support\Collection;
 class ExpedienteController extends Controller
 {
 	public function getLineasExpediente($alumno) {
-		$l = Expediente::find($alumno) -> lineas;
+		$l = Expediente::firstWhere("idAlumno", $alumno) -> lineas;
 
 		$lineas = $l -> groupBy("anho") -> map(function($lanho, $anho) {
 			$cursos = $lanho -> groupBy("idCurso") -> map(function($lmodulo, $curso) {
 				$modulos = $lmodulo -> groupBy("idModulo") -> map(function($lineas, $modulo) {
+					$l = $lineas -> first();
+
 					return new Collection([
+						"linea" => $l -> linea,
 						"modulo" => Modulo::find($modulo) -> nombre,
-						"lineas" => $lineas -> makeHidden("idCurso", "idModulo", "numExpediente")
+						"calificacion" => $l -> calificacion,
+						"convocatoria" => $l -> convocatoria,
+						"observaciones" => $l -> observaciones,
 					]);
 				}) -> values();
 

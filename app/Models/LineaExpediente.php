@@ -22,7 +22,7 @@ class LineaExpediente extends Model
 	];
 
 	protected $hidden = [
-		// "numExpediente", ??
+		"numExpediente", // ??
 		"idCurso",
 		"idModulo",
 	];

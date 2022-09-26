@@ -13,7 +13,6 @@ class Nota extends Model
 
 	protected $fillable = [
 		"idAlumno",
-		"ahno",
 		"idCurso",
 		"idModulo",
 		"periodo",
@@ -22,6 +21,7 @@ class Nota extends Model
 	];
 
 	protected $hidden = [
+		"idAlumno",
 		"idCurso",
 		"idModulo",
 	];
