@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class TestController extends Controller
 {
-    public function test(AuthRequest $authRequest) {
-		return response() -> json($authRequest -> validated());
+    public function test(Request $request) {
+		return response() -> json($request -> collect());
 	}
 }

@@ -20,21 +20,7 @@ class UsuarioRepository implements IUsuarioRepository
 	 * @return mixed
 	 */
 	public function nuevoUsuario(Request $request) {
-		$usuario = Usuario::create([
-			"dni" => $request -> dni,
-			"nombre" => $request -> nombre,
-			"apellidos" => $request -> apellidos,
-			"direccion" => $request -> direccion,
-			"municipio" => $request -> municipio,
-			"localidad" => $request -> localidad,
-			"provincia" => $request -> provincia,
-			"codigoPostal" => $request -> codigoPostal,
-			"telefono" => $request -> telefono,
-			"fechaNacimiento" => $request -> fechaNacimiento,
-			"email" => $request -> email,
-			"password" => bcrypt("123abc."),
-			"nivel" => $request -> nivel
-		]);
+		$usuario = Usuario::create($request -> collect());
 
 		if(!$usuario) { // ¿Añadir esto?
 			return $this -> error(new Collection([
