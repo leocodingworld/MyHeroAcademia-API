@@ -2,13 +2,15 @@
 
 namespace Aion\MyHeroAcademia\Utils;
 
-trait ApiResponse {
+use Illuminate\Support\Enumerable;
 
-	public function success(array $data) {
+trait ApiResponse
+{
+	public function success(array | Enumerable $data) {
 		return response() -> json($data);
 	}
 
-	public function error(array $data, $status) {
-		return response() -> json($data, ($status ?: 404));
+	public function error(array | Enumerable $data, $status = 404) {
+		return response() -> json($data, $status);
 	}
 }

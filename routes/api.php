@@ -7,6 +7,7 @@ use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\ExpedienteController;
 use App\Http\Controllers\ModuloController;
 use App\Http\Controllers\NotaController;
+use App\Http\Controllers\TestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,10 @@ use App\Http\Controllers\NotaController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::controller(TestController::class) -> group(function() {
+	Route::get("/test", "test");
+});
+
 
 Route::controller(AuthController::class) -> group(function() {
 	Route::post("/login", "login");
