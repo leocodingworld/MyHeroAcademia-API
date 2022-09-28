@@ -11,7 +11,7 @@ class Alumno extends Model
 	public $incrementing = false;
 	public $timestamps = false;
 
-	protected $filliable = [
+	protected $fillable = [
 		"id",
 		"matriculado", // ???
 		"anho"
