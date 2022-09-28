@@ -15,7 +15,8 @@ class AuthRepository implements IAuthRepository
 	use ApiResponse;
 
 	const HTTP_OK = 200;
-	const HTTP_NOT_AUTH = 403;
+	const HTTP_FORBIDDEN = 403;
+	CONST HTTP_NOT_AUTH = 401;
 	const HTTP_ERROR = 404;
 	protected IUsuarioRepository $usuarioRepository;
 
@@ -28,16 +29,26 @@ class AuthRepository implements IAuthRepository
 	{
 		$usuario = $this -> usuarioRepository -> getUsuarioByEmail($authRequest -> email);
 
+		// Si el usuario no existe, ...
 		if(!$usuario) {
 			return $this -> error(new Collection([
 				"mensaje" => "El email y/o la contraseña no son correctos"
-			]));
+			]), self::HTTP_NOT_AUTH);
 		}
 
+		// O no está activo...
+		if(!$usuario -> activo) {
+			return $this -> error(new Collection([
+				"mensaje" => "La cuenta no está activada.\nContacte con el centro para ayuda"
+			]), self::HTTP_FORBIDDEN);
+		}
+
+		// O la contraseña está mal,
+		// devuelve un mensaje de error y código respondiente a ese error
 		if(!Hash::check($authRequest -> password, $usuario -> password)) {
 			return $this -> error(new Collection([
 				"mensaje" => "El email y/o la contraseña no son correctos"
-			]));
+			], self::HTTP_NOT_AUTH));
 		}
 
 		return $this -> success(new Collection([

@@ -15,7 +15,22 @@ class UsuarioRepository implements IUsuarioRepository
 	use ApiResponse;
 
 	public function nuevoUsuario(Request $request) {
-		$usuario = Usuario::create($request -> collect());
+		$usuario = Usuario::create([
+			"dni" => $request -> dni,
+			"nombre" => $request -> nombre,
+			"apellidos" => $request -> apellidos,
+			"sexo" => $request -> sexo ?? "hombre",
+			"direccion" => $request -> direccion,
+			"municipio" => $request -> municipio,
+			"localidad" => $request -> localidad,
+			"provincia" => $request -> provincia,
+			"codigoPostal" => $request -> codigoPostal,
+			"telefono" => $request -> telefono,
+			"fechaNacimiento" => $request -> fechaNacimiento,
+			"email" => $request -> email,
+			"nivel" => $request -> nivel,
+			"password" => bcrypt("123abc."),
+		]);
 
 		if(!$usuario) { // ¿Añadir esto?
 			return $this -> error(new Collection([
@@ -40,12 +55,14 @@ class UsuarioRepository implements IUsuarioRepository
 		$alumno = new Alumno;
 
 		$alumno -> id = $usuario -> id;
-		$alumno -> fechaMatricula = $date . "/" . $date + 1;
+		$alumno -> anho = $date . "/" . $date + 1;
 		$alumno -> save();
 
 		if(!$alumno) {
-			return ;
+			return;
 		}
+
+		$this -> createExpediente($alumno);
 	}
 
 	function createExpediente(Alumno $alumno) {
@@ -86,5 +103,17 @@ class UsuarioRepository implements IUsuarioRepository
 	}
 
 	public function editarUsuario(Request $request, $usuario) {
+		$usuario = Usuario::find($usuario)
+			-> update($request -> collect() -> toArray());
+
+		if(!$usuario) {
+			return $this -> error(new Collection([
+				"mensaje" => "Fallo al actualizar, revise los datos"
+			]));
+		}
+
+		return $this -> success(new Collection([
+			"mensaje" => "Datos del usuario actualizados con éxito"
+		]));
 	}
 }

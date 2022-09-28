@@ -8,6 +8,7 @@ use App\Models\Expediente;
 use App\Models\Personal;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class UsuarioController extends Controller
 {
@@ -21,47 +22,7 @@ class UsuarioController extends Controller
 	// CREATE
 
 	public function createUsuario(Request $request) {
-		$usuario = Usuario::create([
-			...($request -> collect()),
-			"password" => bcrypt("123abc."),
-			"sexo" => "Hombre"
-		]);
-
-		if($request -> nivel == 1) {
-			$this -> createAlumno($usuario);
-		} else {
-			$this -> createPersonal($usuario);
-		}
-
-		return response() -> json([
-			"mensaje" => "Usuario creado con éxito"
-		]);
-	}
-
-	private function createAlumno(Usuario $usuario) {
-		$alumno = new Alumno;
-
-		$alumno -> id = $usuario -> id;
-		$this -> createExpediente($alumno);
-
-		return $alumno;
-	}
-
-	private function createExpediente(Alumno | Usuario $alumno) {
-		$expediente = new Expediente();
-
-		$expediente -> idAlumno = $alumno -> id;
-		$expediente -> save();
-
-		return $expediente;
-	}
-
-	private function createPersonal(Usuario $usuario) {
-		$personal = new Personal;
-
-		$personal -> id = $usuario -> id;
-
-		return $personal;
+		return $this -> usuarioRepository -> nuevoUsuario($request);
 	}
 
 	// READ
@@ -120,7 +81,7 @@ class UsuarioController extends Controller
 		return response("Correcto", 200);
 	}
 
-	public function editarUsuario(Request $request) {
-
+	public function editarUsuario(Request $request, $usuario) {
+		return $this -> usuarioRepository -> editarUsuario($request, $usuario);
 	}
 }
