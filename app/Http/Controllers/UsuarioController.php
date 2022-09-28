@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Aion\MyHeroAcademia\Contracts\IUsuarioRepository;
 use App\Models\Alumno;
 use App\Models\Expediente;
 use App\Models\Personal;
@@ -10,23 +11,20 @@ use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
 {
+	private IUsuarioRepository $usuarioRepository;
+
+	public function __construct(IUsuarioRepository $usuarioRepository)
+	{
+		$this -> usuarioRepository = $usuarioRepository;
+	}
+
 	// CREATE
 
 	public function createUsuario(Request $request) {
 		$usuario = Usuario::create([
-			"dni" => $request -> dni,
-			"nombre" => $request -> nombre,
-			"apellidos" => $request -> apellidos,
-			"direccion" => $request -> direccion,
-			"municipio" => $request -> municipio,
-			"localidad" => $request -> localidad,
-			"provincia" => $request -> provincia,
-			"codigoPostal" => $request -> codigoPostal,
-			"telefono" => $request -> telefono,
-			"fechaNacimiento" => $request -> fechaNacimiento,
-			"email" => $request -> email,
+			...($request -> collect()),
 			"password" => bcrypt("123abc."),
-			"nivel" => $request -> nivel
+			"sexo" => "Hombre"
 		]);
 
 		if($request -> nivel == 1) {
@@ -41,11 +39,9 @@ class UsuarioController extends Controller
 	}
 
 	private function createAlumno(Usuario $usuario) {
-		$alumno = Alumno::create([
-			"id" => $usuario -> id,
-			"fechaMatricula" => date("Y-m-d")
-		]);
+		$alumno = new Alumno;
 
+		$alumno -> id = $usuario -> id;
 		$this -> createExpediente($alumno);
 
 		return $alumno;
@@ -54,16 +50,16 @@ class UsuarioController extends Controller
 	private function createExpediente(Alumno | Usuario $alumno) {
 		$expediente = new Expediente();
 
-		$expediente -> alumno = $alumno -> id;
+		$expediente -> idAlumno = $alumno -> id;
 		$expediente -> save();
 
 		return $expediente;
 	}
 
 	private function createPersonal(Usuario $usuario) {
-		$personal = Personal::create([
-			"id" => $usuario -> id
-		]);
+		$personal = new Personal;
+
+		$personal -> id = $usuario -> id;
 
 		return $personal;
 	}

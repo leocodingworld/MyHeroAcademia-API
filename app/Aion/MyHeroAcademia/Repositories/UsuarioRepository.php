@@ -3,22 +3,17 @@
 namespace Aion\MyHeroAcademia\Repositories;
 
 use Aion\MyHeroAcademia\Contracts\IUsuarioRepository;
+use Aion\MyHeroAcademia\Utils\ApiResponse;
 use App\Models\Usuario;
 use App\Models\Alumno;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Aion\MyHeroAcademia\Utils\ApiResponse;
+use App\Models\Expediente;
 
 class UsuarioRepository implements IUsuarioRepository
 {
 	use ApiResponse;
 
-	/**
-	 *
-	 * @param \Illuminate\Http\Request $request
-	 *
-	 * @return mixed
-	 */
 	public function nuevoUsuario(Request $request) {
 		$usuario = Usuario::create($request -> collect());
 
@@ -39,12 +34,6 @@ class UsuarioRepository implements IUsuarioRepository
 		]));
 	}
 
-	/**
-	 *
-	 * @param \App\Models\Usuario $usuario
-	 *
-	 * @return mixed
-	 */
 	function createAlumno(Usuario $usuario) {
 		$date = intval(date("Y"));
 
@@ -52,96 +41,50 @@ class UsuarioRepository implements IUsuarioRepository
 
 		$alumno -> id = $usuario -> id;
 		$alumno -> fechaMatricula = $date . "/" . $date + 1;
+		$alumno -> save();
+
+		if(!$alumno) {
+			return ;
+		}
 	}
 
-	/**
-	 *
-	 * @param \App\Models\Alumno $alumno
-	 *
-	 * @return mixed
-	 */
 	function createExpediente(Alumno $alumno) {
+		$expediente = new Expediente;
+
+		$expediente -> idAlumno = $alumno -> id;
+
+		$expediente -> save();
 	}
 
-	/**
-	 *
-	 * @param \App\Models\Usuario $usuario
-	 *
-	 * @return mixed
-	 */
 	public function createPersonal(Usuario $usuario) {
 	}
 
-	/**
-	 *
-	 * @return mixed
-	 */
 	public function getUsuarios() {
 	}
 
-	/**
-	 *
-	 * @param mixed $id
-	 *
-	 * @return mixed
-	 */
 	public function getUsuarioById($id) {
 	}
 
-	public function getUsuarioByEmail(string $email) {
-
+	public function getUsuarioByEmail(string $email) : Usuario | null
+	{
+		return Usuario::firstWhere("email", $email);
 	}
 
-	/**
-	 *
-	 * @param mixed $usuario
-	 *
-	 * @return mixed
-	 */
 	public function getDatosUsuario($usuario) {
 	}
 
-	/**
-	 *
-	 * @return mixed
-	 */
 	public function getPersonal() {
 	}
 
-	/**
-	 *
-	 * @param mixed $email
-	 *
-	 * @return mixed
-	 */
 	public function checkEmail($email) {
 	}
 
-	/**
-	 *
-	 * @param mixed $dni
-	 *
-	 * @return mixed
-	 */
 	public function checkDNI($dni) {
 	}
 
-	/**
-	 *
-	 * @param mixed $usuario
-	 *
-	 * @return mixed
-	 */
 	public function modificarEstadoUsuario($usuario) {
 	}
 
-	/**
-	 *
-	 * @param \Illuminate\Http\Request $request
-	 * @param mixed $usuario
-	 *
-	 * @return mixed
-	 */
 	public function editarUsuario(Request $request, $usuario) {
 	}
 }
