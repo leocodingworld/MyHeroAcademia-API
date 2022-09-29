@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Modulo;
 use Exception;
 use Illuminate\Http\Request;
+use App\Models\Usuario;
 
 class ModuloController extends Controller
 {
@@ -13,15 +14,18 @@ class ModuloController extends Controller
 	}
 
 	public function getAlumnosPorModulo($modulo) {
-		return Modulo::find($modulo) -> alumnos;
+		$ids = Modulo:: find($modulo) -> alumnos -> pluck("idAlumno");
+		$alumnos = Usuario::select("id", "nombre", "apellidos")
+			-> whereIn("id", $ids)
+			-> get();
+
+		return $alumnos;
 	}
 
 	// Funciona
 	// Mejorar en mandar los parámetros que hagan falta
 	public function getModulosPorProfesor($profesor) {
-		return Modulo::with("curso:id,nombre,nombreCorto")
-			-> where("tutor", $profesor)
-			-> get();
+		return Modulo::where("tutor", $profesor) -> get();
 	}
 
 	public function asignarModuloProfesor($modulo, $profesor) {
