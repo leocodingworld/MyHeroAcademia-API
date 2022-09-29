@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Aion\MyHeroAcademia\Contracts\IAuthRepository;
+use Aion\MyHeroAcademia\Repositories\Contracts\IAuthRepository;
 use App\Http\Requests\AuthRequest;
 use App\Models\Usuario;
 use Illuminate\Http\Request;

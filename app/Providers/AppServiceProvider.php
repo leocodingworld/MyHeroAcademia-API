@@ -14,12 +14,12 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this -> app -> bind(
-			\Aion\MyHeroAcademia\Contracts\IAuthRepository::class,
+			\Aion\MyHeroAcademia\Repositories\Contracts\IAuthRepository::class,
 			\Aion\MyHeroAcademia\Repositories\AuthRepository::class
 		);
 
 		$this -> app -> bind(
-			\Aion\MyHeroAcademia\Contracts\IUsuarioRepository::class,
+			\Aion\MyHeroAcademia\Repositories\Contracts\IUsuarioRepository::class,
 			\Aion\MyHeroAcademia\Repositories\UsuarioRepository::class
 		);
     }

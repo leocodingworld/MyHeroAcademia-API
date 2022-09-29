@@ -1,6 +1,6 @@
 <?php
 
-namespace Aion\MyHeroAcademia\Contracts;
+namespace Aion\MyHeroAcademia\Repositories\Contracts;
 
 use App\Models\Alumno;
 use App\Models\Usuario;

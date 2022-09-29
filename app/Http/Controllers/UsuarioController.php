@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Aion\MyHeroAcademia\Contracts\IUsuarioRepository;
+use Aion\MyHeroAcademia\Repositories\Contracts\IUsuarioRepository;
 use App\Models\Alumno;
 use App\Models\Expediente;
 use App\Models\Personal;

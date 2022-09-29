@@ -2,12 +2,11 @@
 
 namespace Aion\MyHeroAcademia\Repositories;
 
-use Aion\MyHeroAcademia\Contracts\IAuthRepository;
+use Aion\MyHeroAcademia\Repositories\Contracts\IAuthRepository;
 use Aion\MyHeroAcademia\Utils\ApiResponse;
 use App\Http\Requests\AuthRequest;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
-use Aion\MyHeroAcademia\Contracts\IUsuarioRepository;
+use Aion\MyHeroAcademia\Repositories\Contracts\IUsuarioRepository;
 use Illuminate\Support\Facades\Hash;
 
 class AuthRepository implements IAuthRepository

@@ -2,13 +2,13 @@
 
 namespace Aion\MyHeroAcademia\Repositories;
 
-use Aion\MyHeroAcademia\Contracts\IUsuarioRepository;
+use Aion\MyHeroAcademia\Repositories\Contracts\IUsuarioRepository;
 use Aion\MyHeroAcademia\Utils\ApiResponse;
-use App\Models\Usuario;
 use App\Models\Alumno;
+use App\Models\Expediente;
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use App\Models\Expediente;
 
 class UsuarioRepository implements IUsuarioRepository
 {
