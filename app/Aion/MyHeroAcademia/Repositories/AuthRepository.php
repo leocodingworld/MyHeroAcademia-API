@@ -8,6 +8,8 @@ use App\Http\Requests\AuthRequest;
 use Illuminate\Support\Collection;
 use Aion\MyHeroAcademia\Repositories\Contracts\IUsuarioRepository;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 
 class AuthRepository implements IAuthRepository
 {
@@ -17,7 +19,7 @@ class AuthRepository implements IAuthRepository
 	const HTTP_FORBIDDEN = 403;
 	CONST HTTP_NOT_AUTH = 401;
 	const HTTP_ERROR = 404;
-	protected IUsuarioRepository $usuarioRepository;
+	private IUsuarioRepository $usuarioRepository;
 
 	public function __construct(IUsuarioRepository $usuarioRepository)
 	{
@@ -59,8 +61,22 @@ class AuthRepository implements IAuthRepository
 		]));
 	}
 
-	public function logout(AuthRequest $authRequest) {
-		$usuario = $this -> usuarioRepository -> getUsuarioByEmail($authRequest -> email);
+	public function logout(Request $request)
+	{
+		$usuario = $this -> usuarioRepository -> getUsuarioByEmail($request -> email);
 
+		if(!$usuario -> tokens) {
+			return;
+		}
+
+		$tokenId = Str::limit($request -> bearerToken(), 1, "");
+		$usuario
+			-> tokens
+			-> firstWhere("id", $tokenId)
+			-> delete();
+
+		return $this -> success(new Collection([
+			"mensaje" => "Sesión cerrada"
+		]));
 	}
 }

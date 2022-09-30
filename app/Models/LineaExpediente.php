@@ -30,4 +30,12 @@ class LineaExpediente extends Model
 	public function expediente() {
 		return $this -> belongsTo(Expediente::class, "numExpediente", "numero");
 	}
+
+	public function curso() {
+		return $this -> belongsTo(Curso::class, "id", "idCurso");
+	}
+
+	public function modulo() {
+		return $this -> belongsTo(Modulo::class, "id", "idModulo");
+	}
 }

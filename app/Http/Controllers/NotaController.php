@@ -2,15 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use Aion\MyHeroAcademia\Utils\ApiResponse;
+use Aion\MyHeroAcademia\Repositories\Contracts\INotaRepository;
 use App\Models\Curso;
 use App\Models\Modulo;
 use App\Models\Nota;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Exception;
 
 class NotaController extends Controller
 {
+	use ApiResponse;
+
+	private INotaRepository $notaRepository;
+
+	public function __construct(INotaRepository $notaRepository)
+	{
+		$this -> notaRepository = $notaRepository;
+	}
+
 	public function getNotas(string | int $alumno, string | int $modulo = null) {
 		return $modulo
 			? $this -> getNotasAlumnoPorModulo($alumno, $modulo)
@@ -21,7 +33,7 @@ class NotaController extends Controller
 		$na = Nota::where("idAlumno", $alumno) -> get();
 
 		$notas = $na -> groupBy("idCurso") -> map(function($notas, $curso) {
-			$modulos = $notas -> groupBy("idModulo") ->map(function($notas, $modulo) {
+			$modulos = $notas -> groupBy("idModulo") -> map(function($notas, $modulo) {
 				return new Collection([
 					"modulo" => Modulo::find($modulo) -> nombre,
 					"nota" => $notas
@@ -44,23 +56,11 @@ class NotaController extends Controller
 			[ "idAlumno", $alumno ],
 			[ "idModulo", $modulo ]
 		])
+		-> select("referencia", "periodo", "calificacion", "observaciones")
 		-> get();
 	}
 
 	public function nuevaNota(Request $request) {
-		$nota = new Nota();
 
-		$nota -> idAlumno = $request -> alumno;
-		$nota -> idCurso = $request -> curso;
-		$nota -> idModulo = $request -> modulo;
-		$nota -> periodo = $request -> periodo;
-		$nota -> calificacion = $request -> calificacion;
-		$nota -> observaciones = $request -> observaciones ?? null;
-
-		$nota -> saveOrFail();
-
-		return response() -> json([
-			"mensaje" => "Nota registrada con éxito"
-		]);
 	}
 }

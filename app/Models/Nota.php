@@ -20,11 +20,7 @@ class Nota extends Model
 		"observaciones"
 	];
 
-	protected $hidden = [
-		"idAlumno",
-		"idCurso",
-		"idModulo",
-	];
+	protected $hidden = [];
 
 	public function curso() {
 		return $this -> belongsTo(Curso::class, "idCurso", "id");
@@ -32,5 +28,9 @@ class Nota extends Model
 
 	public function modulo() {
 		return $this -> belongsTo(Modulo::class, "idModulo", "id");
+	}
+
+	public function alumno() {
+		return $this -> belongsTo(Alumno::class, "id", "idAlumno");
 	}
 }

@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use Aion\MyHeroAcademia\Repositories\Contracts\IUsuarioRepository;
-use App\Models\Alumno;
-use App\Models\Expediente;
-use App\Models\Personal;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;

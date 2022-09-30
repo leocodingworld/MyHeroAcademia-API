@@ -17,24 +17,13 @@ class AuthController extends Controller
 		$this -> authRepository = $authRepository;
 	}
 
-	public function login(AuthRequest $authRequest) {
+	public function login(AuthRequest $authRequest)
+	{
 		return $this -> authRepository -> login($authRequest);
 	}
 
-	public function logout(Request $request) {
-		$usuario = Usuario::find($request -> id);
-
-		if(!$usuario -> tokens) {
-			return response() -> json([], 404);
-		}
-
-		$tokenId = Str::limit($request -> bearerToken(), 1, "");
-		$usuario
-			-> tokens
-			-> where("id", $tokenId)
-			-> first
-			-> delete();
-
-		return response() -> json();
+	public function logout(Request $request)
+	{
+		return $this -> authRepository -> logout($request);
 	}
 }
