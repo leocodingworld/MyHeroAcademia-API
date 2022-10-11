@@ -6,6 +6,7 @@ use Aion\MyHeroAcademia\Repositories\Contracts\IUsuarioRepository;
 use Aion\MyHeroAcademia\Utils\ApiResponse;
 use App\Models\Alumno;
 use App\Models\Expediente;
+use App\Models\Personal;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -49,7 +50,7 @@ class UsuarioRepository implements IUsuarioRepository
 		]));
 	}
 
-	function createAlumno(Usuario $usuario) {
+	private function createAlumno(Usuario $usuario) {
 		$date = intval(date("Y"));
 
 		$alumno = new Alumno;
@@ -65,7 +66,7 @@ class UsuarioRepository implements IUsuarioRepository
 		$this -> createExpediente($alumno);
 	}
 
-	function createExpediente(Alumno $alumno) {
+	private function createExpediente(Alumno $alumno) {
 		$expediente = new Expediente;
 
 		$expediente -> idAlumno = $alumno -> id;
@@ -73,7 +74,11 @@ class UsuarioRepository implements IUsuarioRepository
 		$expediente -> save();
 	}
 
-	public function createPersonal(Usuario $usuario) {
+	public function createPersonal(Usuario $usuario, string $numSegSocial) {
+		$personal = new Personal;
+
+		$personal -> id = $usuario -> id;
+		$personal -> numSegSocial =
 	}
 
 	public function getUsuarios() {
