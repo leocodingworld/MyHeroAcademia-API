@@ -32,6 +32,10 @@ class NotaController extends Controller
 	private function getNotasAlumno(string | int $alumno) {
 		$na = Nota::where("idAlumno", $alumno) -> get();
 
+		if(!$na) {
+			return ;
+		}
+
 		$notas = $na -> groupBy("idCurso") -> map(function($notas, $curso) {
 			$modulos = $notas -> groupBy("idModulo") -> map(function($notas, $modulo) {
 				return new Collection([
