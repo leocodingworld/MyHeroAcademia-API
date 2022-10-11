@@ -8,10 +8,6 @@ use Illuminate\Http\Request;
 
 interface IUsuarioRepository {
 	public function nuevoUsuario(Request $request);
-	public function createAlumno(Usuario $usuario);
-	public function createExpediente(Alumno $alumno);
-	public function createPersonal(Usuario $usuario);
-
 	public function getUsuarios();
 	// public function getUsuarios($page = 1, $perPage = 15);
 	public function getUsuarioById($id);
