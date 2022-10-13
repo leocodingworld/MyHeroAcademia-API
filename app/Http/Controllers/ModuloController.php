@@ -2,13 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use Aion\MyHeroAcademia\Repositories\Contracts\IModuloRepository;
 use App\Models\Modulo;
-use Exception;
-use Illuminate\Http\Request;
 use App\Models\Usuario;
+use Exception;
 
 class ModuloController extends Controller
 {
+	private IModuloRepository $moduloRepository;
+
+	public function __construct(IModuloRepository $moduloRepository)
+	{
+		$this -> moduloRepository = $moduloRepository;
+	}
+
     public function getModulos() {
 		return Modulo::all();
 	}

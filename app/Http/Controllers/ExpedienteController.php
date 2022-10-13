@@ -13,15 +13,9 @@ class ExpedienteController extends Controller
 		$this -> expedienteRepository = $expedienteRepository;
 	}
 
-	public function getLineasExpediente($alumno) {
+	public function getLineasExpediente($alumno)
+	{
 		return $this -> expedienteRepository -> getLineasExpediente($alumno);
 	}
 
-	// public function nuevaLinea(Request $request) {
-
-	// }
-
-	// public function editarLinea($linea, Request $request) {
-
-	// }
 }

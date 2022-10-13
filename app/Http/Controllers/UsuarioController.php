@@ -25,57 +25,34 @@ class UsuarioController extends Controller
 	// READ
 
 	public function getUsuarios() {
-		return Usuario::select("id", "nombre", "apellidos", "activo", "dni", "nivel")
-			-> get();
+		return $this -> usuarioRepository -> getUsuarios();
 	}
 
 	public function getUsuarioData($usuario) { // OK
-		return Usuario::find($usuario);
+		return $this -> usuarioRepository -> getDatosUsuario($usuario);
 	}
 
 	public function getAlumnos() { // Añadir ciertos campos extras
-		return Usuario::where("nivel", 1) -> select(["id", "nombre", "apellidos"]) -> get();
+		return $this -> usuarioRepository -> getAlumnos();
 	}
 
 	public function getPersonal() {
-		return;
+		return $this -> usuarioRepository -> getPersonal();
 	}
 
 	public function checkEmail($email) {
-		return Usuario::where("email", $email) -> select("id") -> first();
+		return $this -> usuarioRepository -> checkEmail($email);
 	}
 
 	public function checkDNI($dni) {
-		return Usuario::where("dni", $dni) -> select("id") -> first();
+		return $this -> usuarioRepository -> checkDNI($dni);
 	}
 
 	// UPDATE
 
-	public function activarUsuario(Request $request) {
-		if(!$request -> id) {
-			return response("No hay datos", 400);
-		}
-
-		$activar = Usuario::where("id", $request -> id) -> first();
-
-		$activar -> activo = true;
-		$activar -> save();
-
-		return response() -> json([
-
-		], 200);
-	}
-
-	public function desactivarUsuario(Request $request) {
-		if(!$request -> id) {
-			return response("No hay datos", 400);
-		}
-
-		$desactivar = Usuario::where("id", $request -> id) -> first();
-		$desactivar -> activo = false;
-		$desactivar -> save();
-
-		return response("Correcto", 200);
+	public function modificarEstadoUsuario($usuario)
+	{
+		return $this -> usuarioRepository -> modificarEstadoUsuario($usuario);
 	}
 
 	public function editarUsuario(Request $request, $usuario) {
