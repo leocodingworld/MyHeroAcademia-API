@@ -33,8 +33,4 @@ class AlumnoController extends Controller
 		$usuario = Usuario::find($request -> id);
 
 	}
-
-	public function editarMatricula($alumno, Request $request) {
-
-	}
 }

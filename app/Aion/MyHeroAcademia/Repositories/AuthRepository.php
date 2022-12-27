@@ -3,10 +3,10 @@
 namespace Aion\MyHeroAcademia\Repositories;
 
 use Aion\MyHeroAcademia\Repositories\Contracts\IAuthRepository;
+use Aion\MyHeroAcademia\Repositories\Contracts\IUsuarioRepository;
 use Aion\MyHeroAcademia\Utils\ApiResponse;
 use App\Http\Requests\AuthRequest;
 use Illuminate\Support\Collection;
-use Aion\MyHeroAcademia\Repositories\Contracts\IUsuarioRepository;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;

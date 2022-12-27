@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'My Hero Academia API'),
+    'name' => env('APP_NAME', 'Sumeru Akademiya API'),
 
     /*
     |--------------------------------------------------------------------------

@@ -27,6 +27,11 @@ class AppServiceProvider extends ServiceProvider
 			\Aion\MyHeroAcademia\Repositories\Contracts\INotaRepository::class,
 			\Aion\MyHeroAcademia\Repositories\NotaRepository::class
 		);
+
+		$this -> app -> bind(
+			\Aion\MyHeroAcademia\Repositories\Contracts\IModuloRepository::class,
+			\Aion\MyHeroAcademia\Repositories\ModuloRepository::class
+		);
     }
 
     /**
